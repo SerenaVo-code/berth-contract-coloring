@@ -19,8 +19,8 @@ testcases/*.json      dữ liệu mẫu
 Codespaces: Code → Codespaces → Create codespace on main. Môi trường chỉ có sẵn Python và Node, **không tự cài hay tự chạy gì**. Trong Terminal:
 
 ```bash
-make install     # cài thư viện (một lần)
-make dev         # chạy backend :8000 + giao diện :5173 (Ctrl+C để dừng)
+npm run setup    # cài thư viện (một lần)
+npm run dev      # chạy backend :8000 + giao diện :5173 (Ctrl+C để dừng)
 ```
 Mở tab Ports, bấm biểu tượng địa cầu ở cổng 5173. Trên máy cũng dùng đúng các lệnh này.
 
@@ -28,7 +28,7 @@ Chạy một cổng: `npm --prefix frontend run build`, rồi `cd backend && uvi
 
 ## Kiểm thử
 ```bash
-make test                  # thuật toán + API
+npm test                   # thuật toán + API
 python tests/e2e_smoke.py  # giao diện (cần playwright, backend và frontend đang chạy)
 ```
 
