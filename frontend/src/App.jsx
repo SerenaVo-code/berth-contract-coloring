@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { solve } from './api.js'
+import StepView from './StepView.jsx'
 import {
   ALGOS, SAMPLES, sampleShips, randomShips, parsePairs, hasPair, contractsOf,
   toHM, parseHM, fmtNum, colorOf, tintOf,
@@ -21,7 +22,7 @@ const I = {
   check: <path d="M5 12l5 5L19 7" />,
 }
 
-const KIND_LABEL = { info: 'GIỚI THIỆU', assign: 'GÁN', back: 'QUAY LUI', found: 'KỶ LỤC MỚI', dead: 'CẮT TỈA', done: 'HOÀN TẤT' }
+const KIND_LABEL = { info: 'GIỚI THIỆU', assign: 'GÁN', back: 'QUAY LUI', found: 'TỐT NHẤT HIỆN CÓ', dead: 'BỎ NHÁNH', done: 'HOÀN TẤT' }
 
 export default function App() {
   const [ships, setShips] = useState(() => sampleShips(SAMPLES[0]))
@@ -31,7 +32,7 @@ export default function App() {
   const [pairText, setPairText] = useState('')
   const [pairErr, setPairErr] = useState('')
   const [algo, setAlgo] = useState('greedy')
-  const [tab, setTab] = useState('timeline')
+  const [tab, setTab] = useState('steps')
   const [data, setData] = useState(null)
   const [solved, setSolved] = useState(null) // đầu vào đã dùng để giải
   const [step, setStep] = useState(0)
@@ -205,7 +206,7 @@ export default function App() {
         <main>
           <div className="bar">
             <div className="tabs" role="tablist">
-              {[['timeline', 'Dòng thời gian'], ['graph', 'Đồ thị'], ['compare', 'So sánh']].map(([k, l]) => (
+              {[['steps', 'Từng bước'], ['timeline', 'Dòng thời gian'], ['graph', 'Đồ thị'], ['compare', 'So sánh']].map(([k, l]) => (
                 <button key={k} role="tab" className={tab === k ? 'on' : ''} onClick={() => setTab(k)} data-testid={`tab-${k}`}>{l}</button>
               ))}
             </div>
@@ -217,24 +218,26 @@ export default function App() {
                 <button className="iconbtn fill" aria-label={playing ? 'Tạm dừng' : 'Phát'} onClick={() => { if (!playing && step >= steps.length - 1) setStep(0); setPlaying((p) => !p) }} data-testid="play"><Icon d={playing ? I.pause : I.play} size={14} /></button>
                 <button className="iconbtn" aria-label="Bước tiếp" onClick={() => { setPlaying(false); setStep((s) => Math.min(steps.length - 1, s + 1)) }} data-testid="next"><Icon d={I.next} size={14} /></button>
                 <button className="iconbtn" aria-label="Về cuối" onClick={() => { setPlaying(false); setStep(steps.length - 1) }}><Icon d={I.last} size={14} /></button>
+                {algo === 'bt' && <button type="button" className="btn sm" style={{ height: 30 }} onClick={() => { setPlaying(false); const j = steps.findIndex((s, i) => i > step && (s.kind === 'found' || s.kind === 'dead' || s.kind === 'done')); setStep(j < 0 ? steps.length - 1 : j) }}>Nhảy tới sự kiện kế</button>}
                 <input type="range" min="0" max={steps.length - 1} value={Math.min(step, steps.length - 1)} onChange={(e) => { setPlaying(false); setStep(Number(e.target.value)) }} />
               </div>
             )}
           </div>
 
           {!data && !error && <div className="empty">Đang giải bài toán…</div>}
+          {data && tab === 'steps' && cur && <StepView algo={algo} steps={steps} step={step} setStep={(i) => { setPlaying(false); setStep(i) }} ships={shownShips} F={solved.F} r={solved.r} lbCost={data.lbCost} />}
           {data && tab === 'timeline' && <Timeline ships={shownShips} contracts={contracts} cur={cur} />}
           {data && tab === 'graph' && <GraphView ships={shownShips} pairs={solved.pairs} col={col} cur={cur} />}
           {data && tab === 'compare' && <Compare data={data} algo={algo} onPick={(k) => { pickAlgo(k); setTab('timeline') }} />}
 
-          {data && tab !== 'compare' && cur && (
+          {data && tab !== 'compare' && tab !== 'steps' && cur && (
             <div className="stepbox" data-testid="stepbox">
               <span className={`badge ${cur.kind}`}>{KIND_LABEL[cur.kind]}</span>
               <p>{cur.msg}</p>
             </div>
           )}
 
-          {data && tab !== 'compare' && (
+          {data && tab !== 'compare' && tab !== 'steps' && (
             <div className="kpis">
               <div className="kpi"><span>Tổng chi phí</span><span className="v" data-testid="kpi-cost">{fmtNum(total)}<small>USD</small></span></div>
               <div className="kpi"><span>Số hợp đồng (bến)</span><span className="v">{contracts.length}</span></div>

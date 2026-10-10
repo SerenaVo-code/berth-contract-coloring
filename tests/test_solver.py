@@ -85,3 +85,23 @@ def test_api():
     assert j["results"]["bt"]["cost"] == 940
     bad = dict(body, F=-1)
     assert c.post("/api/solve", json=bad).status_code == 422
+
+
+def test_step_details():
+    r = solve_all(mk([(6, 9), (8, 11), (9.5, 13), (10, 14), (13.5, 17), (15, 19), (18, 21)]), [[1, 4]], 500, 40)["results"]
+    s5 = r["best"]["steps"][5]  # Tàu 5
+    by_k = {c["k"]: c for c in s5["cands"]}
+    assert s5["line"] == 8 and s5["cost"] == 2220
+    assert by_k[0]["status"] == "chosen" and by_k[0]["delta"] == 160
+    assert by_k[1]["status"] == "blocked" and by_k[1]["reason"] == dict(t="extra", ship=1)
+    assert by_k[2]["status"] == "blocked" and by_k[2]["reason"] == dict(t="time", ship=3)
+    assert by_k[3]["new"] and by_k[3]["delta"] == 640 and by_k[3]["status"] == "ok"
+    dead = [s for s in r["bt"]["steps"] if s["kind"] == "dead"][0]
+    assert dead["cost"] == 2440 and dead["best"] == 2580 and dead["line"] == 6
+    sts = {c["k"]: c for c in dead["cands"]}
+    assert sts[0]["status"] == "blocked"
+    assert [sts[k]["bound"] for k in (1, 2, 3)] == [2840, 2600, 3060]
+    assert all(c["status"] == "pruned" for k, c in sts.items() if k)
+    for key in r:
+        for s in r[key]["steps"]:
+            assert "cost" in s and "line" in s

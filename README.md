@@ -2,7 +2,7 @@
 
 Bài toán: hãng tàu có *n* tàu, mỗi tàu cần một bến trong khoảng [đến, rời]. Mỗi **hợp đồng thuê bến** (một màu) phục vụ nhiều tàu không trùng giờ, chi phí `F + r × (giờ rời cuối − giờ đến đầu)`, kể cả giờ trống. Hai tàu trùng giờ, hoặc có ràng buộc phụ, không được chung hợp đồng. Mục tiêu: tổng chi phí nhỏ nhất.
 
-Bốn thuật toán: tham lam theo giờ đến, tham lam chọn hợp đồng rẻ nhất, DSatur, quay lui có cắt tỉa. Giao diện xem từng bước, đồ thị xung đột, bảng so sánh.
+Bốn thuật toán: tham lam theo giờ đến, tham lam chọn hợp đồng rẻ nhất, DSatur, quay lui (lùi lại thử cách khác, có bỏ nhánh). Tab "Từng bước" hiện mã giả đang chạy, bảng ứng viên kèm lý do bị loại, biểu đồ so với phương án tốt nhất hiện có; ngoài ra có dòng thời gian, đồ thị xung đột và bảng so sánh.
 
 ## Kiến trúc
 React + Vite (`frontend/`) ⇄ FastAPI (`backend/`). Một endpoint `POST /api/solve` chạy cả 4 thuật toán và trả toàn bộ các bước; giao diện duyệt bước từ bộ nhớ, không gọi thêm.

@@ -11,6 +11,8 @@ with sync_playwright() as p:
     errs = []
     pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto(URL)
+    pg.wait_for_selector("[data-testid=stepview]")
+    pg.click("[data-testid=tab-timeline]")
     pg.wait_for_selector("[data-testid=timeline]")
     assert pg.inner_text("[data-testid=kpi-cost]").startswith("2.700")
     pg.click("[data-testid=tab-compare]")
@@ -19,8 +21,12 @@ with sync_playwright() as p:
     pg.click("[data-testid=algo-bt]")
     pg.click("[data-testid=tab-graph]")
     pg.wait_for_selector("[data-testid=graph]")
-    pg.click("[data-testid=tab-timeline]")
-    pg.click("[data-testid=next]")
+    pg.click("[data-testid=tab-steps]")
+    pg.click("button[aria-label='Về đầu']")
+    for _ in range(18):
+        pg.click("[data-testid=next]")
+    txt = pg.inner_text("[data-testid=stepview]")
+    assert "BỎ NHÁNH" in txt and "2.580" in txt
     pg.screenshot(path="e2e.png", full_page=True)
     assert not errs, errs
     b.close()

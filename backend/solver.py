@@ -79,10 +79,44 @@ class Graph:
         return sum(self.F + self.r * (e - s) for s, e in self.stats(col).values())
 
 
+def _delta(G, col, v, k):
+    c2 = list(col)
+    c2[v] = k
+    return G.cost(c2) - G.cost(col)
+
+
+def _reason(G, col, v, k):
+    """Lý do tàu v không vào được hợp đồng k: trùng giờ (time) hoặc ràng buộc phụ (extra)."""
+    hit = None
+    for u in sorted(G.adj[v]):
+        if col[u] == k:
+            sv, su = G.ships[v], G.ships[u]
+            overlap = sv["s"] < su["e"] and su["s"] < sv["e"]
+            if overlap:
+                return dict(t="time", ship=u)
+            hit = hit or dict(t="extra", ship=u)
+    return hit
+
+
+def _cands(G, col, v, chosen_k):
+    """Mọi ứng viên cho tàu v (trước khi gán): các hợp đồng đang có + một hợp đồng mới."""
+    K = (max(col) + 1) if col and max(col) >= 0 else 0
+    out = []
+    for k in range(K):
+        why = _reason(G, col, v, k)
+        if why:
+            out.append(dict(k=k, new=False, status="blocked", reason=why))
+        else:
+            out.append(dict(k=k, new=False, status="chosen" if k == chosen_k else "ok", delta=_delta(G, col, v, k)))
+    s = G.ships[v]
+    out.append(dict(k=K, new=True, status="chosen" if chosen_k == K else "ok", delta=G.F + G.r * (s["e"] - s["s"])))
+    return out
+
+
 def _finish(G, col, steps, extra=""):
     k = (max(col) + 1) if col else 0
     cost = G.cost(col)
-    steps.append(dict(col=list(col), cur=-1, row=-1, kind="done",
+    steps.append(dict(col=list(col), cur=-1, row=-1, kind="done", line=0, cost=cost,
                       msg=f"Hoàn tất: dùng {k} hợp đồng, tổng chi phí {fm(cost)}.{extra}"))
     return cost
 
@@ -96,7 +130,7 @@ def _result(G, steps, col, cost, optimal=None, exhausted=False):
 def run_greedy(G):
     col = [-1] * G.n
     names = ", ".join(G.ships[v]["name"] for v in G.order)
-    steps = [dict(col=list(col), cur=-1, row=-1, kind="info",
+    steps = [dict(col=list(col), cur=-1, row=-1, kind="info", line=1, cost=0,
                   msg=f"Sắp xếp tàu theo giờ đến: {names}. Mỗi tàu được xếp vào hợp đồng có số nhỏ nhất còn dùng được, không xét chi phí.")]
     for v in G.order:
         forb = G.forb(col, v)
@@ -104,10 +138,11 @@ def run_greedy(G):
         k = 0
         while k in forb:
             k += 1
+        cands = _cands(G, col, v, k)
         col[v] = k
         s = G.ships[v]
         c1 = G.cost(col)
-        steps.append(dict(col=list(col), cur=v, row=k, kind="assign",
+        steps.append(dict(col=list(col), cur=v, row=k, kind="assign", line=5, cost=c1, cands=cands,
                           msg=f"Xét {s['name']} (đến {ft(s['s'])}, rời {ft(s['e'])}). Hợp đồng bị chặn bởi tàu xung đột: {list_contracts(forb) if forb else 'không có'}. Chọn HĐ {k + 1}, chi phí tăng thêm {fm(c1 - c0)}."))
     return _result(G, steps, col, _finish(G, col, steps))
 
@@ -116,7 +151,7 @@ def run_best(G):
     F, r = G.F, G.r
     col = [-1] * G.n
     cend: list[float] = []
-    steps = [dict(col=list(col), cur=-1, row=-1, kind="info",
+    steps = [dict(col=list(col), cur=-1, row=-1, kind="info", line=1, cost=0,
                   msg="Tham lam chọn hợp đồng rẻ nhất: duyệt tàu theo giờ đến. Với mỗi tàu, so chi phí nối vào một hợp đồng đang có (trả thêm r × số giờ kéo dài, kể cả giờ trống) với chi phí mở hợp đồng mới (F + r × số giờ của tàu), rồi chọn cách rẻ hơn.")]
     for v in G.order:
         s = G.ships[v]
@@ -133,13 +168,13 @@ def run_best(G):
         head = f"Xét {s['name']} (đến {ft(s['s'])}, rời {ft(s['e'])}). "
         if best_k >= 0 and best_d <= new_d + EPS:
             pick = best_k
+            line = 8
             txt = (f"{head}Nối vào HĐ {best_k + 1} (rảnh từ {ft(cend[best_k])}, trống {fm(s['s'] - cend[best_k])} giờ) "
                    f"tốn thêm {fm(r)}×{fm(s['e'] - cend[best_k])} = {fm(best_d)}, không đắt hơn mở hợp đồng mới "
                    f"({fm(F)} + {fm(r)}×{fm(dur)} = {fm(new_d)}).")
-            cend[pick] = s["e"]
         else:
             pick = len(cend)
-            cend.append(s["e"])
+            line = 9
             if best_k >= 0:
                 txt = (f"{head}Nối vào HĐ {best_k + 1} tốn {fm(best_d)}, đắt hơn mở hợp đồng mới "
                        f"({fm(F)} + {fm(r)}×{fm(dur)} = {fm(new_d)}). Mở HĐ {pick + 1}.")
@@ -147,15 +182,20 @@ def run_best(G):
                 why = f"bị chặn: {list_contracts(forb)}" if forb else "chưa có hợp đồng nào"
                 txt = (f"{head}Không hợp đồng nào dùng được ({why}). Mở HĐ {pick + 1}, "
                        f"tốn {fm(F)} + {fm(r)}×{fm(dur)} = {fm(new_d)}.")
+        cands = _cands(G, col, v, pick)
+        if pick == len(cend):
+            cend.append(s["e"])
+        else:
+            cend[pick] = s["e"]
         col[v] = pick
-        steps.append(dict(col=list(col), cur=v, row=pick, kind="assign", msg=txt))
+        steps.append(dict(col=list(col), cur=v, row=pick, kind="assign", line=line, cost=G.cost(col), cands=cands, msg=txt))
     return _result(G, steps, col, _finish(G, col, steps))
 
 
 def run_dsatur(G):
     n = G.n
     col = [-1] * n
-    steps = [dict(col=list(col), cur=-1, row=-1, kind="info",
+    steps = [dict(col=list(col), cur=-1, row=-1, kind="info", line=1, cost=0,
                   msg="DSatur: mỗi lượt chọn tàu có nhiều hợp đồng khác nhau bị chặn nhất. Nếu hòa thì chọn tàu có nhiều xung đột nhất, rồi đến tàu đứng trước trong danh sách. Thuật toán chỉ tìm cách dùng ít hợp đồng, không xét chi phí.")]
     for _ in range(n):
         bv, bsat, bdeg, bforb = -1, -1, -1, set()
@@ -170,9 +210,10 @@ def run_dsatur(G):
         k = 0
         while k in bforb:
             k += 1
+        cands = _cands(G, col, bv, k)
         col[bv] = k
         c1 = G.cost(col)
-        steps.append(dict(col=list(col), cur=bv, row=k, kind="assign",
+        steps.append(dict(col=list(col), cur=bv, row=k, kind="assign", line=4, cost=c1, cands=cands, sat=bsat, deg=bdeg,
                           msg=f"Chọn {G.ships[bv]['name']} ({bsat} hợp đồng bị chặn, {bdeg} xung đột). Bị chặn: {list_contracts(bforb) if bforb else 'không có'}. Chọn HĐ {k + 1}, chi phí tăng thêm {fm(c1 - c0)}."))
     return _result(G, steps, col, _finish(G, col, steps))
 
@@ -186,20 +227,24 @@ def run_bt(G):
     for i in range(n - 1, -1, -1):
         sh = G.ships[order[i]]
         rem_lb[i] = rem_lb[i + 1] + r * (sh["e"] - sh["s"])
+    cap = max(300, min(STEP_CAP, 300_000 // max(n, 1)))  # giữ dung lượng phản hồi hợp lý khi nhiều tàu
     t0 = time.monotonic()
     steps: list[dict[str, Any]] = []
     st = dict(best=float("inf"), best_col=None, stop=False, timed_out=False, truncated=False, nodes=0)
 
-    def push(o):
-        if len(steps) < STEP_CAP:
+    def push(o, cost, depth):
+        if len(steps) < cap:
             o["col"] = list(col)
+            o["cost"] = cost
+            o["depth"] = depth
+            o["best"] = None if st["best"] == float("inf") else st["best"]
             steps.append(o)
         else:
             st["truncated"] = True
 
     names = ", ".join(G.ships[v]["name"] for v in order)
-    steps.append(dict(col=list(col), cur=-1, row=-1, kind="info",
-                      msg=f"Quay lui: duyệt tàu theo giờ đến ({names}). Mỗi tàu thử lần lượt các lựa chọn từ rẻ đến đắt: nối vào một hợp đồng đang có hoặc mở hợp đồng mới. Nhánh nào có chi phí đã tiêu cộng cận dưới phần còn lại không thấp hơn kỷ lục thì bị cắt."))
+    steps.append(dict(col=list(col), cur=-1, row=-1, kind="info", line=1, cost=0, depth=0, best=None,
+                      msg=f"Quay lui (lùi lại thử cách khác): duyệt tàu theo giờ đến ({names}). Mỗi tàu thử lần lượt các lựa chọn từ rẻ đến đắt: nối vào một hợp đồng đang có hoặc mở hợp đồng mới. Nhánh nào có chi phí đã tiêu cộng cận dưới phần còn lại không thấp hơn phương án tốt nhất hiện có thì bị bỏ."))
 
     def rec(idx, used, cost):
         if st["stop"]:
@@ -211,9 +256,9 @@ def run_bt(G):
         if idx == n:
             st["best"], st["best_col"] = cost, list(col)
             hit = cost <= G.lb_cost + EPS
-            push(dict(cur=-1, row=-1, kind="found",
-                      msg=f"Tìm được phương án dùng {used} hợp đồng, tổng chi phí {fm(cost)}, ghi nhận làm kỷ lục."
-                          + (f" Bằng cận dưới {fm(G.lb_cost)} nên chắc chắn tối ưu, dừng tìm." if hit else " Tiếp tục tìm phương án rẻ hơn.")))
+            push(dict(cur=-1, row=-1, kind="found", line=2,
+                      msg=f"Tìm được phương án dùng {used} hợp đồng, tổng chi phí {fm(cost)}, ghi lại làm phương án tốt nhất hiện có."
+                          + (f" Bằng cận dưới {fm(G.lb_cost)} (mức thấp nhất có thể) nên chắc chắn tối ưu, dừng tìm." if hit else " Tiếp tục tìm phương án rẻ hơn.")), cost, idx)
             if hit:
                 st["stop"] = True
             return
@@ -221,16 +266,33 @@ def run_bt(G):
         s = G.ships[v]
         dur = s["e"] - s["s"]
         forb = G.forb(col, v)
-        opts = [(r * (s["e"] - cend[k]), k, False) for k in range(used) if k not in forb]
-        opts.append((F + r * dur, used, True))
-        opts.sort(key=lambda o: (o[0], o[1]))
+        entries: dict[int, dict] = {}
+        for k in range(used):
+            if k in forb:
+                entries[k] = dict(k=k, new=False, status="blocked", reason=_reason(G, col, v, k))
+            else:
+                d = r * (s["e"] - cend[k])
+                entries[k] = dict(k=k, new=False, status="pending", delta=d, total=cost + d,
+                                  bound=cost + d + rem_lb[idx + 1] + F * max(0, lb - used))
+        d = F + r * dur
+        entries[used] = dict(k=used, new=True, status="pending", delta=d, total=cost + d,
+                             bound=cost + d + rem_lb[idx + 1] + F * max(0, lb - (used + 1)))
+
+        def snap():
+            return [dict(e) for _, e in sorted(entries.items())]
+
+        opts = sorted((e for e in entries.values() if e["status"] == "pending"), key=lambda e: (e["delta"], e["k"]))
         tried = 0
-        for d, k, nw in opts:
+        for e in opts:
+            k, nw, d = e["k"], e["new"], e["delta"]
             used2 = used + 1 if nw else used
             bound = cost + d + rem_lb[idx + 1] + F * max(0, lb - used2)
+            e["bound"] = bound
             if bound >= st["best"] - EPS:
+                e["status"] = "pruned"
                 continue
             tried += 1
+            e["status"] = "current"
             old_end = cend[k] if not nw else None
             if nw:
                 cend.append(s["e"])
@@ -239,20 +301,21 @@ def run_bt(G):
             col[v] = k
             what = (f"Thử mở HĐ {k + 1} cho {s['name']} (tốn {fm(F)} + {fm(r)}×{fm(dur)} = {fm(d)})" if nw
                     else f"Thử nối {s['name']} vào HĐ {k + 1} (tốn thêm {fm(d)})")
-            push(dict(cur=v, row=k, kind="assign", msg=f"{what}, tổng chi phí {fm(cost + d)}."))
+            push(dict(cur=v, row=k, kind="assign", line=7, cands=snap(), msg=f"{what}, tổng chi phí {fm(cost + d)}."), cost + d, idx + 1)
             rec(idx + 1, used2, cost + d)
             if st["stop"]:
                 return
+            e["status"] = "tried"
             col[v] = -1
             if nw:
                 cend.pop()
             else:
                 cend[k] = old_end
-            push(dict(cur=v, row=k, kind="back",
-                      msg=f"Quay lui: bỏ {s['name']} khỏi HĐ {k + 1}, thử lựa chọn tiếp theo."))
+            push(dict(cur=v, row=k, kind="back", line=8, cands=snap(),
+                      msg=f"Quay lui: bỏ {s['name']} khỏi HĐ {k + 1}, thử lựa chọn tiếp theo."), cost, idx)
         if not tried:
-            push(dict(cur=v, row=-1, kind="dead",
-                      msg=f"Cắt tỉa: mọi lựa chọn cho {s['name']} đều làm chi phí đã tiêu cộng cận dưới phần còn lại không thấp hơn kỷ lục {fm(st['best'])}. Quay lui."))
+            push(dict(cur=v, row=-1, kind="dead", line=6, cands=snap(),
+                      msg=f"Bỏ nhánh: mọi lựa chọn cho {s['name']} đều làm chi phí đã tiêu cộng cận dưới phần còn lại không thấp hơn phương án tốt nhất hiện có ({fm(st['best'])}). Quay lui."), cost, idx)
 
     rec(0, 0, 0.0)
     best_col = st["best_col"] or run_best(G)["col"]
@@ -261,9 +324,9 @@ def run_bt(G):
     if st["timed_out"]:
         note += " Dừng vì chạm giới hạn thời gian hoặc số nút duyệt, đây là kết quả tốt nhất tìm được."
     if st["truncated"]:
-        note += f" Demo chỉ hiển thị {STEP_CAP} bước đầu."
-    # col trong bước cuối phải là lời giải tốt nhất, không phải trạng thái đang duyệt dở
+        note += f" Demo chỉ hiển thị {cap} bước đầu."
     _finish(G, best_col, steps, note)
+    steps[-1]["best"] = cost
     return _result(G, steps, best_col, cost,
                    optimal=cost <= G.lb_cost + EPS or not st["timed_out"],
                    exhausted=not st["timed_out"])
@@ -280,4 +343,4 @@ def solve_all(ships, pairs, F, r):
         res = fn(G)
         res["ms"] = round((time.perf_counter() - t) * 1000, 2)
         out[key] = res
-    return dict(results=out, lb=G.lb, lbCost=G.lb_cost, sumDur=G.sum_dur)
+    return dict(results=out, lb=G.lb, lbCost=G.lb_cost, sumDur=G.sum_dur, F=F, r=r)
