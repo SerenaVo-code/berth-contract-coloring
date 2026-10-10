@@ -15,21 +15,21 @@ tests/                pytest (so với vét cạn) + e2e Playwright
 testcases/*.json      dữ liệu mẫu
 ```
 
-## Chạy bằng GitHub Codespaces (khuyên dùng)
-Code → Codespaces → Create. Môi trường tự cài thư viện và chạy server; mở cổng **5173** (giao diện). Nếu cần chạy lại: `bash scripts/start.sh`.
+## Chạy
+Codespaces: Code → Codespaces → Create codespace on main. Môi trường chỉ có sẵn Python và Node, **không tự cài hay tự chạy gì**. Trong Terminal:
 
-## Chạy trên máy
 ```bash
-pip install -r backend/requirements.txt
-cd frontend && npm install && cd ..
-bash scripts/start.sh          # 8000 (API) + 5173 (giao diện)
+make install     # cài thư viện (một lần)
+make dev         # chạy backend :8000 + giao diện :5173 (Ctrl+C để dừng)
 ```
-Chạy một cổng: `cd frontend && npm run build`, rồi `cd backend && uvicorn server:app --port 8000` và mở http://localhost:8000.
+Mở tab Ports, bấm biểu tượng địa cầu ở cổng 5173. Trên máy cũng dùng đúng các lệnh này.
+
+Chạy một cổng: `npm --prefix frontend run build`, rồi `cd backend && uvicorn server:app --port 8000` và mở http://localhost:8000.
 
 ## Kiểm thử
 ```bash
-python -m pytest tests          # thuật toán + API
-python tests/e2e_smoke.py       # giao diện (cần playwright, backend và frontend đang chạy)
+make test                  # thuật toán + API
+python tests/e2e_smoke.py  # giao diện (cần playwright, backend và frontend đang chạy)
 ```
 
 ## Giới hạn
