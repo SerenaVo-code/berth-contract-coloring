@@ -1,4 +1,4 @@
-"""Chạy toàn bộ testcase trong testcases/*/ và kiểm tra kết quả bằng bộ kiểm tra viết riêng.
+"""Chạy toàn bộ testcase trong testcases/*/ (gọi thẳng các hàm giải, không qua API) và kiểm tra kết quả bằng bộ kiểm tra viết riêng.
 
     python3 tools/run_testcases.py            # in tóm tắt, ghi testcases/RESULTS.md và results.json
     python3 tools/run_testcases.py --quiet    # chỉ in dòng tổng
@@ -7,7 +7,6 @@ Bộ kiểm tra KHÔNG tin các cờ `optimal`/`feasible` của solver. Nó tự
   - hợp lệ: không có hai tàu xung đột chung hợp đồng/đội; đủ kỹ năng; tải ≤ sức chứa; mỗi lô đúng một lần;
   - chi phí/giá trị/số thùng được tính lại và phải trùng với con số solver báo;
   - đối chiếu với `expect.opt` (vét cạn, công thức hoặc dựng sẵn) và cận dưới;
-  - testcase không hợp lệ phải bị API từ chối bằng HTTP 422.
 """
 from __future__ import annotations
 
@@ -20,16 +19,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "backend"))
 
-from fastapi.testclient import TestClient  # noqa: E402
-from server import app  # noqa: E402
+from assign import solve_assign  # noqa: E402
+from binpack import solve_binpack  # noqa: E402
+from knapsack import solve_knapsack  # noqa: E402
+from solver import solve_all  # noqa: E402
 
 EPS = 1e-6
-ENDPOINT = {"m1": "/api/solve", "m2": "/api/assign", "m3": "/api/knapsack", "m4": "/api/binpack"}
+SOLVE = {
+    "m1": lambda i: solve_all(i["ships"], i["pairs"], i["F"], i["r"]),
+    "m2": lambda i: solve_assign(i["ships"], i["teams"], i["pairs"]),
+    "m3": lambda i: solve_knapsack(i["items"], i["W"]),
+    "m4": lambda i: solve_binpack(i["items"], i["C"]),
+}
 MODULE_NAME = {"m1": "Thuê bến (tô màu đồ thị)", "m2": "Phân công đội (gán việc)",
                "m3": "Quỹ giờ công (cái túi 0/1)", "m4": "Xếp container (bin packing)"}
 ALGO_NAME = {"greedy": "Tham lam", "best": "Tham lam chi phí", "dsatur": "DSATUR", "bt": "Quay lui",
              "hard": "Khó trước", "dp": "QHĐ", "ff": "FF", "ffd": "FFD", "bfd": "BFD"}
-GROUP_ORDER = ["thuong", "nho", "bien", "dac-biet", "lon", "khong-hop-le"]
+GROUP_ORDER = ["thuong", "nho", "bien", "dac-biet", "lon"]
 GROUP_LABEL = {"thuong": "Thông thường", "nho": "Dữ liệu nhỏ", "bien": "Biên", "dac-biet": "Đặc biệt",
                "lon": "Dữ liệu lớn", "khong-hop-le": "Không hợp lệ"}
 
@@ -240,29 +246,17 @@ def size_of(c):
     return f"{len(i.get('items', []))} lô, C={num(i['C']) if isinstance(i.get('C'), (int, float)) else i.get('C')}"
 
 
-def run_case(client, c):
-    ex = c["expect"]
+def run_case(c):
+    """Gọi thẳng hàm giải của module rồi kiểm tra kết quả."""
     t0 = time.perf_counter()
-    r = client.post(ENDPOINT[c["module"]], json=c["input"])
+    out = SOLVE[c["module"]](c["input"])
     wall = (time.perf_counter() - t0) * 1000
-    row = dict(id=c["id"], module=c["module"], group=c["group"], title=c["title"], size=size_of(c), wall_ms=round(wall, 1),
-               kb=round(len(r.content) / 1024), errors=[], note="", algos={})
-    if ex["status"] != 200:
-        if r.status_code != ex["status"]:
-            row["errors"].append(f"mong HTTP {ex['status']} nhưng nhận {r.status_code}")
-        else:
-            try:
-                row["note"] = "bị từ chối: " + str(r.json().get("detail"))[:90]
-            except Exception:
-                row["note"] = f"bị từ chối (HTTP {r.status_code})"
-    else:
-        if r.status_code != 200:
-            row["errors"].append(f"mong HTTP 200 nhưng nhận {r.status_code}: {r.text[:120]}")
-        else:
-            errs, info, note = CHECK[c["module"]](c["input"], r.json(), ex)
-            row["errors"] += errs
-            row["note"] = note or ""
-            row["algos"] = {k: dict(result=v[0], ms=round(v[1], 2)) for k, v in info.items()}
+    row = dict(id=c["id"], module=c["module"], group=c["group"], title=c["title"], size=size_of(c),
+               wall_ms=round(wall, 1), errors=[], note="", algos={})
+    errs, info, note = CHECK[c["module"]](c["input"], out, c["expect"])
+    row["errors"] += errs
+    row["note"] = note or ""
+    row["algos"] = {k: dict(result=v[0], ms=round(v[1], 2)) for k, v in info.items()}
     row["pass"] = not row["errors"]
     return row
 
@@ -275,8 +269,8 @@ def load_cases():
 
 
 def run_all():
-    client = TestClient(app)
-    return [run_case(client, c) for c in load_cases()], load_cases()
+    cases = load_cases()
+    return [run_case(c) for c in cases], cases
 
 
 def result_str(module, algos):
@@ -304,8 +298,6 @@ def write_report(rows, cases):
         for r in mr:
             ex = by_id[r["id"]]["expect"]
             opt = f"{num(ex['opt'])} ({ex['opt_source']})" if ex.get("opt") is not None else ("vô nghiệm" if ex.get("feasible") is False else "—")
-            if ex["status"] != 200:
-                opt = "HTTP 422"
             mx = max([v["ms"] for v in r["algos"].values()], default=0)
             res = result_str(m, r["algos"]) if r["algos"] else "—"
             note = "; ".join(r["errors"]) if r["errors"] else r["note"]

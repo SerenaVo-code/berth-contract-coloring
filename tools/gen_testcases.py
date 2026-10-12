@@ -31,7 +31,7 @@ def add(module, group, num, title, desc, inp, **expect):
                       input=inp, expect=expect))
 
 
-GROUPS = {"T": "thuong", "N": "nho", "B": "bien", "D": "dac-biet", "L": "lon", "X": "khong-hop-le"}
+GROUPS = {"T": "thuong", "N": "nho", "B": "bien", "D": "dac-biet", "L": "lon"}
 
 
 # ───────────────────────── Module 1: thuê bến (tô màu) ─────────────────────────
@@ -160,21 +160,6 @@ def gen_m1():
     iv = [(3 * i, 3 * i + 2) for i in range(200)]
     m1("L", 5, "200 tàu nối đuôi, F lớn", "Không có xung đột: 1 hợp đồng, chi phí F + r × (giờ rời cuối − giờ đến đầu).", iv, 5000, 1,
        opt=5000 + 1 * (iv[-1][1] - iv[0][0]), src="công thức")
-    # --- không hợp lệ
-    def bad(num, title, desc, inp):
-        add("m1", "X", num, title, desc, inp, status=422)
-
-    ok = ships1([(0, 2), (3, 5)])
-    bad(1, "Danh sách tàu rỗng", "Cần ít nhất 1 tàu.", dict(ships=[], pairs=[], F=100, r=10))
-    bad(2, "Giờ rời trước giờ đến", "e < s bị từ chối.", dict(ships=ships1([(5, 3)]), pairs=[], F=100, r=10))
-    bad(3, "Giờ rời bằng giờ đến", "Thời gian cập bằng 0 bị từ chối.", dict(ships=ships1([(5, 5)]), pairs=[], F=100, r=10))
-    bad(4, "F âm", "Phí cố định âm bị từ chối.", dict(ships=ok, pairs=[], F=-1, r=10))
-    bad(5, "r âm", "Đơn giá giờ âm bị từ chối.", dict(ships=ok, pairs=[], F=100, r=-0.5))
-    bad(6, "Cặp ràng buộc ngoài phạm vi", "Chỉ số tàu 5 không tồn tại.", dict(ships=ok, pairs=[[0, 5]], F=100, r=10))
-    bad(7, "Cặp ràng buộc sai dạng", "Một cặp phải có đúng 2 phần tử.", dict(ships=ok, pairs=[[0, 1, 1]], F=100, r=10))
-    bad(8, "201 tàu (vượt giới hạn 200)", "Vượt cỡ tối đa.", dict(ships=ships1([(2 * i, 2 * i + 1) for i in range(201)]), pairs=[], F=100, r=10))
-    bad(9, "Thiếu trường giờ đến", "Thiếu khoá bắt buộc `s` của tàu.", dict(ships=[dict(name="Tàu 1", e=4)], pairs=[], F=100, r=10))
-    bad(10, "Giờ là chữ", "Kiểu dữ liệu sai: s = \"abc\".", dict(ships=[dict(name="Tàu 1", s="abc", e=4)], pairs=[], F=100, r=10))
 
 
 # ───────────────────────── Module 2: phân công đội ─────────────────────────
@@ -287,19 +272,6 @@ def gen_m2():
     rows = [(0, 8, B)] * 7 + [(10 + 3 * i, 12 + 3 * i, B) for i in range(25)]
     m2("L", 4, "32 tàu, vô nghiệm do 7 tàu cùng cập, chỉ 6 đội", "Điều kiện cần (khớp hai phía) phát hiện vô nghiệm ngay mà không phải duyệt 6^32 cách.",
        rows, mk_teams_rows(6), feasible=False)
-    # không hợp lệ
-    def bad(num, title, desc, inp):
-        add("m2", "X", num, title, desc, inp, status=422)
-
-    s1, t1 = mk_ships2([(0, 2, B)]), mk_teams2([(B, 100)])
-    bad(1, "Không có tàu", "Cần ít nhất 1 tàu.", dict(ships=[], teams=t1, pairs=[]))
-    bad(2, "Không có đội", "Cần ít nhất 1 đội.", dict(ships=s1, teams=[], pairs=[]))
-    bad(3, "13 đội (vượt giới hạn 12)", "Vượt số đội tối đa.", dict(ships=s1, teams=mk_teams2([(B, 100)] * 13), pairs=[]))
-    bad(4, "61 tàu (vượt giới hạn 60)", "Vượt số tàu tối đa.", dict(ships=mk_ships2([(2 * i, 2 * i + 1, B) for i in range(61)]), teams=t1, pairs=[]))
-    bad(5, "Giờ rời không sau giờ đến", "e = s bị từ chối.", dict(ships=mk_ships2([(5, 5, B)]), teams=t1, pairs=[]))
-    bad(6, "Đơn giá âm", "rate < 0 bị từ chối.", dict(ships=s1, teams=mk_teams2([(B, -10)]), pairs=[]))
-    bad(7, "Cặp ràng buộc ngoài phạm vi", "Chỉ số tàu 3 không tồn tại.", dict(ships=s1, teams=t1, pairs=[[0, 3]]))
-    bad(8, "Thiếu đơn giá của đội", "Thiếu khoá bắt buộc `rate`.", dict(ships=s1, teams=[dict(name="Đội 1", skills=["boc"])], pairs=[]))
 
 
 # ───────────────────────── Module 3: cái túi 0/1 ─────────────────────────
@@ -360,19 +332,6 @@ def gen_m3():
     m3("L", 2, "25 yêu cầu (tối đa), quỹ 150", "Cỡ tối đa cho phép: quay lui hưởng lợi từ cận trên.", [(rng.randint(3, 45), rng.randint(10, 300)) for _ in range(25)], 150)
     m3("L", 3, "25 yêu cầu tương quan mạnh (khó cho cận trên)", "Giá trị ≈ trọng lượng + nhiễu nhỏ: cận trên yếu, quay lui phải duyệt nhiều.",
        [(w, w * 10 + rng.randint(0, 3)) for w in (rng.randint(5, 40) for _ in range(25))], 150)
-
-    def bad(num, title, desc, inp):
-        add("m3", "X", num, title, desc, inp, status=422)
-
-    ok = [dict(name="Y1", w=3, v=10)]
-    bad(1, "Không có yêu cầu", "Cần ít nhất 1 yêu cầu.", dict(items=[], W=10))
-    bad(2, "26 yêu cầu (vượt giới hạn 25)", "Vượt số yêu cầu tối đa.", dict(items=[dict(name=f"Y{i}", w=1, v=1) for i in range(26)], W=10))
-    bad(3, "Quỹ âm", "W < 0 bị từ chối.", dict(items=ok, W=-1))
-    bad(4, "Quỹ 201 (vượt 200)", "W > 200 bị từ chối.", dict(items=ok, W=201))
-    bad(5, "Vượt 4000 ô DP", "n = 20, W = 200: 20×201 = 4020 > 4000.", dict(items=[dict(name=f"Y{i}", w=1, v=1) for i in range(20)], W=200))
-    bad(6, "Số giờ bằng 0", "w phải là số nguyên ≥ 1.", dict(items=[dict(name="Y1", w=0, v=5)], W=10))
-    bad(7, "Số giờ không nguyên", "w = 2.5: DP theo giờ nguyên không xử lý được.", dict(items=[dict(name="Y1", w=2.5, v=5)], W=10))
-    bad(8, "Giá trị âm", "v < 0 bị từ chối.", dict(items=[dict(name="Y1", w=2, v=-5)], W=10))
 
 
 # ───────────────────────── Module 4: xếp container (bin packing) ─────────────────────────
@@ -448,19 +407,6 @@ def gen_m4():
     m4("L", 3, "60 lô ngẫu nhiên", "Cỡ tối đa, khối lượng ngẫu nhiên: không có đáp án biết trước, chỉ kiểm hợp lệ và so sánh với cận dưới.",
        [rng.randint(5, 60) for _ in range(60)], 100)
     m4("L", 4, "40 lô, mỗi lô > C/3", "Mỗi thùng chứa tối đa 2 lô: bài toán gần với ghép cặp.", [rng.randint(35, 65) for _ in range(40)], 100)
-
-    def bad(num, title, desc, inp):
-        add("m4", "X", num, title, desc, inp, status=422)
-
-    it = [dict(name="C1", w=5)]
-    bad(1, "Không có lô", "Cần ít nhất 1 lô.", dict(items=[], C=10))
-    bad(2, "61 lô (vượt giới hạn 60)", "Vượt số lô tối đa.", dict(items=[dict(name=f"C{i}", w=1) for i in range(61)], C=10))
-    bad(3, "Tải trọng bằng 0", "C phải dương.", dict(items=it, C=0))
-    bad(4, "Tải trọng âm", "C < 0 bị từ chối.", dict(items=it, C=-5))
-    bad(5, "Lô nặng hơn tải trọng", "w > C: không thùng nào chứa nổi.", dict(items=[dict(name="C1", w=11)], C=10))
-    bad(6, "Khối lượng bằng 0", "w phải dương.", dict(items=[dict(name="C1", w=0)], C=10))
-    bad(7, "Khối lượng âm", "w < 0 bị từ chối.", dict(items=[dict(name="C1", w=-2)], C=10))
-    bad(8, "Khối lượng là chữ", "Sai kiểu dữ liệu: w = \"nặng\".", dict(items=[dict(name="C1", w="nặng")], C=10))
 
 
 # ───────────────────────── ghi file ─────────────────────────

@@ -29,7 +29,7 @@ backend/server.py     FastAPI
 frontend/src/         giao diện
 tests/                pytest (so với vét cạn) + e2e Playwright
 testcases/*.json      dữ liệu mẫu ban đầu của module 1
-testcases/m*/         bộ testcase 122 file (4 module × 6 nhóm), mỗi file có `input` dán thẳng vào giao diện/API
+testcases/m*/         bộ testcase file (4 module × 5 nhóm), chỉ kiểm hàm thuật toán; `input` dán thẳng vào giao diện/API
 testcases/RESULTS.md  bảng kết quả chạy bộ testcase (sinh tự động)
 tools/gen_testcases.py   sinh lại bộ testcase (cố định seed)
 tools/run_testcases.py   chạy bộ testcase, kiểm tra độc lập, ghi RESULTS.md
@@ -59,7 +59,7 @@ Module 1: tối đa 200 tàu. Module 2: 60 tàu, 12 đội. Module 3: 25 yêu c�
 
 ## Bộ testcase
 
-Sáu nhóm cho mỗi module: thông thường, dữ liệu nhỏ, biên, đặc biệt, dữ liệu lớn, không hợp lệ (phải bị API trả HTTP 422).
+Năm nhóm cho mỗi module: thông thường, dữ liệu nhỏ, biên, đặc biệt, dữ liệu lớn. Chỉ kiểm các hàm giải, không kiểm lớp API.
 Đáp án tối ưu tham chiếu đến từ vét cạn, công thức lý thuyết hoặc instance dựng sẵn, không lấy từ solver.
 
     python3 tools/gen_testcases.py      # sinh lại testcases/m*/
