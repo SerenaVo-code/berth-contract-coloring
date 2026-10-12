@@ -64,4 +64,4 @@ Năm nhóm cho mỗi module: thông thường, dữ liệu nhỏ, biên, đặc 
 
     python3 tools/gen_testcases.py      # sinh lại testcases/m*/
     python3 tools/run_testcases.py      # chạy, ghi testcases/RESULTS.md và results.json
-    python3 -m pytest -q                # gồm cả 122 testcase
+    python3 -m pytest -q                # gồm cả 88 testcase
