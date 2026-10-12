@@ -65,3 +65,26 @@ Năm nhóm cho mỗi module: thông thường, dữ liệu nhỏ, biên, đặc 
     python3 tools/gen_testcases.py      # sinh lại testcases/m*/
     python3 tools/run_testcases.py      # chạy, ghi testcases/RESULTS.md và results.json
     python3 -m pytest -q                # gồm cả 88 testcase
+
+
+## Nguồn tham khảo
+
+Đánh số để dẫn trong docstring của `backend/*.py` và trong report.
+
+| # | Nguồn | Dùng cho |
+|---|---|---|
+| [1] | Huỳnh Thị Thanh Thương, bài giảng CS112 (Phân tích và thiết kế thuật toán), UIT: quy trình giải quyết vấn đề và các chiến lược thiết kế, khung tham lam, khung quay lui `try(i)`, quy hoạch động, ví dụ tô màu đồ thị | Khung tham lam, quay lui, quy hoạch động; cách mô hình hoá tô màu đồ thị |
+| [2] | D. Brélaz, "New methods to color the vertices of a graph", Communications of the ACM 22(4), 1979, tr. 251–256 | DSATUR (module 1) |
+| [3] | J. Kleinberg, É. Tardos, *Algorithm Design*, Addison-Wesley, 2006: §4.1 (Interval Scheduling, Interval Partitioning), §6.4 (Subset Sums and Knapsacks) | Tô màu đồ thị khoảng; quy hoạch động cái túi |
+| [4] | T. Cormen, C. Leiserson, R. Rivest, C. Stein, *Introduction to Algorithms*, 3rd ed., MIT Press, 2009: §16.2 | Cái túi phân số (tham lam đúng) so với 0/1 (tham lam sai) |
+| [5] | G. B. Dantzig, "Discrete-variable extremum problems", Operations Research 5(2), 1957, tr. 266–288 | Cận trên bằng nới lỏng phân số (module 3) |
+| [6] | S. Martello, P. Toth, "Lower bounds and reduction procedures for the bin packing problem", Discrete Applied Mathematics 28, 1990, tr. 59–70 | Cận dưới ⌈Σw / C⌉ (module 4) |
+| [7] | D. S. Johnson, A. Demers, J. D. Ullman, M. R. Garey, R. L. Graham, "Worst-case performance bounds for simple one-dimensional packing algorithms", SIAM Journal on Computing 3(4), 1974, tr. 299–325 | First-Fit, First-Fit Decreasing (module 4) |
+| [8] | M. R. Garey, D. S. Johnson, *Computers and Intractability*, W. H. Freeman, 1979 | Bin packing, k-tô màu, cái túi đều là bài toán NP-khó |
+| [9] | P. Hall, "On representatives of subsets", Journal of the London Mathematical Society 10(1), 1935, tr. 26–30 | Điều kiện cần để module 2 có nghiệm |
+| [10] | H. W. Kuhn, "The Hungarian method for the assignment problem", Naval Research Logistics Quarterly 2, 1955, tr. 83–97 | Khớp hai phía bằng đường tăng (hàm `hall_violation`) |
+| [11] | M. C. Golumbic, *Algorithmic Graph Theory and Perfect Graphs*, Academic Press, 1980 | Đồ thị khoảng: số màu = số tàu chồng nhau nhiều nhất |
+
+**Phần tự thiết kế:** mô hình chi phí hợp đồng `F + r × (giờ rời cuối − giờ đến đầu)`, cận dưới `ω·F + r·Σ thời gian cập`, mô hình hai bài toán thực tế quanh cảng (phân công đội, quỹ giờ công), cách sinh và hiển thị từng bước, bộ testcase và bộ kiểm tra độc lập.
+
+**Công nghệ:** Python (FastAPI, uvicorn, pydantic, pytest, Playwright), React 18.3 và Vite 5.4, font JetBrains Mono và Noto Sans qua Fontsource. Tên và phiên bản thật nằm trong `backend/requirements.txt` và `frontend/package.json`.

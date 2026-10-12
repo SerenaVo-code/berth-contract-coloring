@@ -2,6 +2,12 @@
 
 Lô i nặng w[i] tấn, mỗi tàu chịu tối đa C tấn. Cần dùng ít tàu nhất.
 Cận dưới = ⌈tổng khối lượng / C⌉.
+
+Nguồn (đánh số theo mục "Nguồn tham khảo" trong README):
+  - First-Fit, First-Fit Decreasing, Best-Fit Decreasing: Johnson và cộng sự 1974 [7]; bài toán là bin packing [8].
+  - Cận dưới ⌈Σw / C⌉ (cận L1): Martello và Toth 1990 [6].
+  - Quay lui + cắt nhánh (bỏ qua thùng cùng tải, cắt khi chạm cận dưới) theo khung quay lui của bài giảng CS112 [1];
+    phần cài đặt và thông điệp từng bước: tự thiết kế.
 """
 from __future__ import annotations
 

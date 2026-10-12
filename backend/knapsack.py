@@ -1,6 +1,12 @@
 """Module 3: chọn yêu cầu dịch vụ thêm trong quỹ giờ công tăng ca có hạn (bài toán cái túi 0/1).
 
 Yêu cầu i tốn w[i] giờ (số nguyên), mang lại giá trị v[i]. Quỹ W giờ. Chọn tập có tổng giá trị lớn nhất.
+
+Nguồn (đánh số theo mục "Nguồn tham khảo" trong README):
+  - Tham lam theo giá trị/giờ (đúng với cái túi phân số, không đúng với 0/1): bài giảng CS112 [1], CLRS §16.2 [4].
+  - Quy hoạch động dp[i][w] và truy vết: bài giảng CS112 [1], Kleinberg–Tardos §6.4 [3].
+  - Quay lui + cận trên bằng nới lỏng phân số: Dantzig 1957 [5].
+  - Mô hình "quỹ giờ công tăng ca" và các thông điệp từng bước: tự thiết kế.
 """
 from __future__ import annotations
 

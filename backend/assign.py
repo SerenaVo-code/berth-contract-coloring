@@ -3,6 +3,12 @@
 Tàu i cần các kỹ năng need[i]. Đội j có kỹ năng skills[j] và đơn giá rate[j]/giờ.
 Chi phí gán i cho j = rate[j] × (giờ rời − giờ đến). Một đội không phục vụ hai tàu trùng giờ
 (hoặc cặp tàu bị ràng buộc thêm). Mục tiêu: tổng chi phí nhỏ nhất.
+
+Nguồn (đánh số theo mục "Nguồn tham khảo" trong README):
+  - Khung tham lam và khung quay lui try(i): bài giảng CS112 [1].
+  - Kiểm tra vô nghiệm bằng khớp hai phía (hàm hall_violation): định lý Hall [9] và thuật toán
+    đường tăng của Kuhn [10]. Phần áp dụng vào các tàu cùng cập một lúc là tự thiết kế.
+  - Mô hình bài toán, cận dưới (mỗi tàu một đội rẻ nhất đủ kỹ năng) và thứ tự "tàu khó trước": tự thiết kế.
 """
 from __future__ import annotations
 

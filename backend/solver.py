@@ -3,6 +3,13 @@
 Mỗi màu = một hợp đồng thuê bến. Chi phí hợp đồng = F + r × (giờ rời cuối − giờ đến đầu),
 kể cả giờ trống ở giữa. Hai tàu chồng thời gian (hoặc có ràng buộc thêm) không chung hợp đồng.
 Mỗi thuật toán trả về danh sách bước (snapshot) để giao diện duyệt từng bước.
+
+Nguồn (đánh số theo mục "Nguồn tham khảo" trong README):
+  - Tham lam theo giờ đến, khung GREEDY và khung quay lui try(i): bài giảng CS112 của cô Thương [1].
+  - Mô hình hoá thành tô màu đồ thị: ví dụ tô màu đồ thị trong bài giảng [1]; đồ thị khoảng có χ = ω [3][11].
+  - DSATUR: Brélaz 1979 [2].
+  - Mô hình chi phí hợp đồng F + r × (giờ rời cuối − giờ đến đầu), cận dưới ω·F + r·Σ(thời gian cập)
+    và điều kiện cắt nhánh: tự thiết kế cho bài này.
 """
 from __future__ import annotations
 
