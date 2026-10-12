@@ -1,7 +1,9 @@
 """Kiểm tra giao diện end-to-end bằng Playwright (cần backend :8000 và frontend :5173 đang chạy).
 Chạy: pip install playwright && playwright install chromium && python tests/e2e_smoke.py
 """
+import os
 import sys
+import tempfile
 from playwright.sync_api import sync_playwright
 
 URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:5173"
@@ -27,7 +29,7 @@ with sync_playwright() as p:
         pg.click("[data-testid=next]")
     txt = pg.inner_text("[data-testid=stepview]")
     assert "BỎ NHÁNH" in txt and "2.580" in txt
-    pg.screenshot(path="e2e.png", full_page=True)
+    pg.screenshot(path=os.path.join(tempfile.gettempdir(), "e2e.png"), full_page=True)
     assert not errs, errs
     b.close()
 print("E2E OK")
