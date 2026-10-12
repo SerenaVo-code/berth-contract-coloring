@@ -153,7 +153,7 @@ export default function Assign({ berthShips }) {
           <CompareTable active={algo} onPick={(k) => { setAlgo(k); setTab('steps') }}
             rows={ALGOS.map((a) => { const r = data.results[a.key]; return { key: a.key, name: a.name, head: 'Tổng chi phí', rank: r.feasible ? r.cost : Infinity,
               valueText: r.feasible ? fmtNum(r.cost) : 'Không đủ nghiệm', gap: r.feasible && data.lb != null ? (r.cost <= data.lb + 1e-9 ? '= cận dưới' : `+${fmtNum(r.cost - data.lb)}`) : '–',
-              steps: r.steps.length - 1, ms: r.ms, tag: a.key === 'bt' ? { ok: r.optimal, text: r.optimal ? 'TỐI ƯU' : 'CHƯA CHẮC TỐI ƯU' } : null } })}
+              steps: r.steps.length - 1, ms: r.ms, tag: a.key === 'bt' ? { ok: r.optimal, text: !r.optimal ? 'CHƯA CHẮC TỐI ƯU' : r.feasible ? 'TỐI ƯU' : 'VÔ NGHIỆM' } : null } })}
             note={`Cận dưới = mỗi tàu chọn đội đủ kỹ năng rẻ nhất, bỏ qua trùng giờ: ${data.lb != null ? fmtNum(data.lb) : 'không có (có tàu không đội nào đủ kỹ năng)'}. Bấm một dòng để xem thuật toán đó chạy từng bước.`} />
         )}
       </main>

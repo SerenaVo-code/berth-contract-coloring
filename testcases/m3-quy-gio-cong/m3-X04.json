@@ -1,0 +1,20 @@
+{
+ "id": "m3-X04",
+ "module": "m3",
+ "group": "khong-hop-le",
+ "title": "Quỹ 201 (vượt 200)",
+ "desc": "W > 200 bị từ chối.",
+ "input": {
+  "items": [
+   {
+    "name": "Y1",
+    "w": 3,
+    "v": 10
+   }
+  ],
+  "W": 201
+ },
+ "expect": {
+  "status": 422
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "id": "m2-X01",
+ "module": "m2",
+ "group": "khong-hop-le",
+ "title": "Không có tàu",
+ "desc": "Cần ít nhất 1 tàu.",
+ "input": {
+  "ships": [],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "boc"
+    ],
+    "rate": 100
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "status": 422
+ }
+}

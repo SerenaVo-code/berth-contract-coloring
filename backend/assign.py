@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import time
 
-from solver import EPS, STEP_CAP, fm
+from solver import EPS, STEP_CAP, fm, ft
 
 BT_MAX_NODES = 400_000
 BT_DEADLINE_S = 1.5
@@ -74,6 +74,29 @@ class Model:
         if rs["t"] == "skill":
             return "thiếu kỹ năng"
         return f"trùng giờ với {self.name(rs['ship'])}" if rs["t"] == "time" else f"ràng buộc với {self.name(rs['ship'])}"
+
+
+def hall_violation(M):
+    """Điều kiện cần: các tàu đang cập cùng một thời điểm phải giao được cho các đội KHÁC NHAU (khớp hai phía).
+    Trả về (giờ, danh sách tàu đang cập) tại thời điểm đầu tiên không khớp được, hoặc None."""
+    for i in sorted(range(M.n), key=lambda q: (M.ships[q]["s"], q)):
+        t = M.ships[i]["s"]
+        act = [k for k in range(M.n) if M.ships[k]["s"] <= t < M.ships[k]["e"]]
+        match: dict[int, int] = {}
+
+        def aug(k, seen):
+            for j in range(M.m):
+                if M.ok[k][j] and j not in seen:
+                    seen.add(j)
+                    if j not in match or aug(match[j], seen):
+                        match[j] = k
+                        return True
+            return False
+
+        for k in act:
+            if not aug(k, set()):
+                return t, act
+    return None
 
 
 def _result(M, steps, assign, optimal=None, exhausted=False, ms=0.0, truncated=False):
@@ -149,6 +172,14 @@ def run_bt(M):
              msg=f"{M.name(infeasible_ship)} không có đội nào đủ kỹ năng: bài toán vô nghiệm.")
         return _result(M, steps, assign, optimal=True, exhausted=True, ms=0.0)
 
+    hv = hall_violation(M)
+    if hv is not None:
+        t, act = hv
+        push(kind="dead", i=act[-1], line=4, total=0.0, depth=0, cands=[], bound=None,
+             msg=f"Lúc {ft(t)} có {len(act)} tàu ({', '.join(M.name(k) for k in act)}) cùng cập nhưng không thể giao cho "
+                 f"{len(act)} đội khác nhau (thiếu đội hoặc thiếu kỹ năng): bài toán vô nghiệm, không cần duyệt.")
+        return _result(M, steps, assign, optimal=True, exhausted=True, ms=0.0)
+
     def rec(p, cost):
         if st["stop"]:
             return
@@ -212,7 +243,7 @@ def run_bt(M):
                           msg="Đã cắt bớt bước hiển thị; " + done))
     ms = (time.perf_counter() - t0) * 1000
     return _result(M, steps, best_assign,
-                   optimal=bool(st["best_assign"]) and (not st["timed_out"]), exhausted=exhausted, ms=ms,
+                   optimal=not st["timed_out"], exhausted=exhausted, ms=ms,
                    truncated=len(steps) >= cap)
 
 

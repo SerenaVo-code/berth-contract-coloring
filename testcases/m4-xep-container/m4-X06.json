@@ -1,0 +1,19 @@
+{
+ "id": "m4-X06",
+ "module": "m4",
+ "group": "khong-hop-le",
+ "title": "Khối lượng bằng 0",
+ "desc": "w phải dương.",
+ "input": {
+  "items": [
+   {
+    "name": "C1",
+    "w": 0
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "status": 422
+ }
+}

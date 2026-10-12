@@ -1,0 +1,32 @@
+{
+ "id": "m1-X06",
+ "module": "m1",
+ "group": "khong-hop-le",
+ "title": "Cặp ràng buộc ngoài phạm vi",
+ "desc": "Chỉ số tàu 5 không tồn tại.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 2
+   },
+   {
+    "name": "Tàu 2",
+    "s": 3,
+    "e": 5
+   }
+  ],
+  "pairs": [
+   [
+    0,
+    5
+   ]
+  ],
+  "F": 100,
+  "r": 10
+ },
+ "expect": {
+  "status": 422
+ }
+}

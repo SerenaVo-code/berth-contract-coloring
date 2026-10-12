@@ -1,0 +1,19 @@
+{
+ "id": "m4-X08",
+ "module": "m4",
+ "group": "khong-hop-le",
+ "title": "Khối lượng là chữ",
+ "desc": "Sai kiểu dữ liệu: w = \"nặng\".",
+ "input": {
+  "items": [
+   {
+    "name": "C1",
+    "w": "nặng"
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "status": 422
+ }
+}

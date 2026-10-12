@@ -1,0 +1,20 @@
+{
+ "id": "m3-X03",
+ "module": "m3",
+ "group": "khong-hop-le",
+ "title": "Quỹ âm",
+ "desc": "W < 0 bị từ chối.",
+ "input": {
+  "items": [
+   {
+    "name": "Y1",
+    "w": 3,
+    "v": 10
+   }
+  ],
+  "W": -1
+ },
+ "expect": {
+  "status": 422
+ }
+}

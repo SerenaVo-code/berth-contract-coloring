@@ -1,0 +1,32 @@
+{
+ "id": "m2-X06",
+ "module": "m2",
+ "group": "khong-hop-le",
+ "title": "Đơn giá âm",
+ "desc": "rate < 0 bị từ chối.",
+ "input": {
+  "ships": [
+   {
+    "name": "T1",
+    "s": 0,
+    "e": 2,
+    "need": [
+     "boc"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "boc"
+    ],
+    "rate": -10
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "status": 422
+ }
+}
