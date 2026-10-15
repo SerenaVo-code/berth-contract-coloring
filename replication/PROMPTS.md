@@ -1,6 +1,6 @@
 # Các prompt đã gõ trong lần dựng lại
 
-Chỉ ghi các tin nhắn thật của Tuyền (nguyên văn, kể cả lỗi gõ) và kết quả thật nhận được. Không có lượt hội thoại mô phỏng nào do Claude đóng vai Tuyền. Nhật ký kỹ thuật chi tiết nằm ở `LOG.md`.
+Kịch bản prompt do Claude soạn thay Tuyền nằm riêng ở `SCRIPT.md`. Tệp này chỉ ghi các tin nhắn thật của Tuyền (nguyên văn, kể cả lỗi gõ) và kết quả thật nhận được. Không có lượt hội thoại mô phỏng nào do Claude đóng vai Tuyền. Nhật ký kỹ thuật chi tiết nằm ở `LOG.md`.
 
 Công cụ: Claude (model `claude-sonnet-5-5`) trong Claude Code. Thời gian theo giờ Việt Nam, ngày 15/10/2026.
 
@@ -21,7 +21,7 @@ Công cụ: Claude (model `claude-sonnet-5-5`) trong Claude Code. Thời gian th
 - Kiểm thử: 237 pytest và một bài e2e Playwright, đều đạt.
 - Đối chiếu hai chiều với bản gốc (`app/CROSS_CHECK.md`).
 
-Claude **không** viết các lượt "mình gõ prompt, mình quyết định" thay Tuyền. Lý do: một nhật ký như vậy sẽ cho thấy quyết định do Tuyền đưa ra trong khi thật ra do Claude đưa ra. Phần này được thay bằng chính tệp này.
+Claude **không** viết các lượt "mình gõ prompt, mình quyết định" thay Tuyền. Lý do: một nhật ký như vậy sẽ cho thấy quyết định do Tuyền đưa ra trong khi thật ra do Claude đưa ra. Sau đó (Prompt 5) Tuyền yêu cầu vẫn ghi phần đó, nên nó nằm riêng ở `SCRIPT.md`, gắn nhãn rõ là đề xuất.
 
 ## Prompt 3 · 07:58 · git
 > Kiểm tra lại git, push lên giúp mình
@@ -39,3 +39,8 @@ Claude **không** viết các lượt "mình gõ prompt, mình quyết định" 
 Claude tự chọn trình tự kiểu Spec Kit: hiến pháp → đặc tả → backend → kiểm thử → testcase → giao diện → đối chiếu. Hiến pháp và đặc tả là bản nháp do Claude viết, chưa được Tuyền duyệt từng điều. Các điều chỉnh so với bản gốc (quay lui đếm theo lần thử thay vì đồng hồ, bảng quy hoạch động tối đa 2500 ô) xuất phát từ các hạn chế đã biết của bản gốc.
 
 Lỗi thật gặp phải và cách sửa nằm ở mục "Lỗi thật gặp phải" của `LOG.md`.
+
+## Prompt 5 · 08:39 · yêu cầu ghi kịch bản đóng vai
+> là soa nhỉ, những prompt bạn đóng vai mình bạn không ghi vào á, cứ ghi vào đi, sau này mình sẽ dùng prompt và quyết định của bạn để test lại
+
+**Kết quả.** Tạo `SCRIPT.md`: 12 vòng prompt và quyết định do Claude soạn, mỗi quyết định gắn nhãn 🟢 gốc (Tuyền thật sự đã quyết ở bản gốc) hoặc 🔵 đề xuất (chưa được Tuyền xác nhận).
