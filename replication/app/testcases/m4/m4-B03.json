@@ -1,0 +1,56 @@
+{
+ "id": "m4-B03",
+ "module": "m4",
+ "group": "bien",
+ "title": "Khối lượng lẻ 0,1",
+ "desc": "Sai số số thực.",
+ "input": {
+  "items": [
+   {
+    "name": "L0",
+    "w": 0.1
+   },
+   {
+    "name": "L1",
+    "w": 0.1
+   },
+   {
+    "name": "L2",
+    "w": 0.1
+   },
+   {
+    "name": "L3",
+    "w": 0.1
+   },
+   {
+    "name": "L4",
+    "w": 0.1
+   },
+   {
+    "name": "L5",
+    "w": 0.1
+   },
+   {
+    "name": "L6",
+    "w": 0.1
+   },
+   {
+    "name": "L7",
+    "w": 0.1
+   },
+   {
+    "name": "L8",
+    "w": 0.1
+   },
+   {
+    "name": "L9",
+    "w": 0.1
+   }
+  ],
+  "C": 1
+ },
+ "expect": {
+  "opt": 1,
+  "opt_source": "công thức"
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "id": "m4-D01",
+ "module": "m4",
+ "group": "dacbiet",
+ "title": "Mọi lô quá nửa tải",
+ "desc": "Mỗi lô một tàu.",
+ "input": {
+  "items": [
+   {
+    "name": "L0",
+    "w": 6
+   },
+   {
+    "name": "L1",
+    "w": 6
+   },
+   {
+    "name": "L2",
+    "w": 6
+   },
+   {
+    "name": "L3",
+    "w": 6
+   },
+   {
+    "name": "L4",
+    "w": 6
+   },
+   {
+    "name": "L5",
+    "w": 6
+   },
+   {
+    "name": "L6",
+    "w": 6
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "opt": 7,
+  "opt_source": "công thức"
+ }
+}

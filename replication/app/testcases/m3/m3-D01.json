@@ -1,0 +1,46 @@
+{
+ "id": "m3-D01",
+ "module": "m3",
+ "group": "dacbiet",
+ "title": "Mọi yêu cầu giống nhau",
+ "desc": "Nhiều nghiệm tối ưu.",
+ "input": {
+  "items": [
+   {
+    "name": "Y0",
+    "w": 3,
+    "v": 10
+   },
+   {
+    "name": "Y1",
+    "w": 3,
+    "v": 10
+   },
+   {
+    "name": "Y2",
+    "w": 3,
+    "v": 10
+   },
+   {
+    "name": "Y3",
+    "w": 3,
+    "v": 10
+   },
+   {
+    "name": "Y4",
+    "w": 3,
+    "v": 10
+   },
+   {
+    "name": "Y5",
+    "w": 3,
+    "v": 10
+   }
+  ],
+  "W": 10
+ },
+ "expect": {
+  "opt": 30,
+  "opt_source": "công thức"
+ }
+}

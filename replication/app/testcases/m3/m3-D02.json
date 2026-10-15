@@ -1,0 +1,31 @@
+{
+ "id": "m3-D02",
+ "module": "m3",
+ "group": "dacbiet",
+ "title": "Giá trị/giờ bằng nhau",
+ "desc": "Mọi tỉ lệ = 2, tối ưu = 2 × giờ dùng được.",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 6,
+    "v": 12
+   },
+   {
+    "name": "B",
+    "w": 5,
+    "v": 10
+   },
+   {
+    "name": "C",
+    "w": 4,
+    "v": 8
+   }
+  ],
+  "W": 10
+ },
+ "expect": {
+  "opt": 20,
+  "opt_source": "công thức"
+ }
+}

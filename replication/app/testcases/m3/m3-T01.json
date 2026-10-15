@@ -1,0 +1,66 @@
+{
+ "id": "m3-T01",
+ "module": "m3",
+ "group": "thuong",
+ "title": "10 yêu cầu #1",
+ "desc": "Ngẫu nhiên.",
+ "input": {
+  "items": [
+   {
+    "name": "Yêu cầu 1",
+    "w": 1,
+    "v": 15
+   },
+   {
+    "name": "Yêu cầu 2",
+    "w": 12,
+    "v": 12
+   },
+   {
+    "name": "Yêu cầu 3",
+    "w": 2,
+    "v": 36
+   },
+   {
+    "name": "Yêu cầu 4",
+    "w": 10,
+    "v": 16
+   },
+   {
+    "name": "Yêu cầu 5",
+    "w": 10,
+    "v": 33
+   },
+   {
+    "name": "Yêu cầu 6",
+    "w": 7,
+    "v": 10
+   },
+   {
+    "name": "Yêu cầu 7",
+    "w": 7,
+    "v": 30
+   },
+   {
+    "name": "Yêu cầu 8",
+    "w": 10,
+    "v": 5
+   },
+   {
+    "name": "Yêu cầu 9",
+    "w": 5,
+    "v": 33
+   },
+   {
+    "name": "Yêu cầu 10",
+    "w": 9,
+    "v": 49
+   }
+  ],
+  "W": 35
+ },
+ "expect": {
+  "opt": 196,
+  "opt_source": "vét cạn"
+ }
+}

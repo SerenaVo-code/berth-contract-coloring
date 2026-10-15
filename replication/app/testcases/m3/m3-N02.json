@@ -1,0 +1,26 @@
+{
+ "id": "m3-N02",
+ "module": "m3",
+ "group": "nho",
+ "title": "2 yêu cầu, chỉ nhận được một",
+ "desc": "",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 4,
+    "v": 5
+   },
+   {
+    "name": "B",
+    "w": 4,
+    "v": 8
+   }
+  ],
+  "W": 5
+ },
+ "expect": {
+  "opt": 8,
+  "opt_source": "công thức"
+ }
+}

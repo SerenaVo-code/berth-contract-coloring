@@ -1,0 +1,48 @@
+{
+ "id": "m1-D01",
+ "module": "m1",
+ "group": "dacbiet",
+ "title": "6 tàu trùng giờ hoàn toàn",
+ "desc": "Cần đúng 6 hợp đồng.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 6
+   },
+   {
+    "name": "Tàu 2",
+    "s": 0,
+    "e": 6
+   },
+   {
+    "name": "Tàu 3",
+    "s": 0,
+    "e": 6
+   },
+   {
+    "name": "Tàu 4",
+    "s": 0,
+    "e": 6
+   },
+   {
+    "name": "Tàu 5",
+    "s": 0,
+    "e": 6
+   },
+   {
+    "name": "Tàu 6",
+    "s": 0,
+    "e": 6
+   }
+  ],
+  "pairs": [],
+  "F": 100,
+  "r": 10
+ },
+ "expect": {
+  "opt": 960,
+  "opt_source": "vét cạn"
+ }
+}

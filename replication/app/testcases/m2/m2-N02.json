@@ -1,0 +1,50 @@
+{
+ "id": "m2-N02",
+ "module": "m2",
+ "group": "nho",
+ "title": "2 tàu rời nhau, 2 đội",
+ "desc": "Cùng giao đội rẻ.",
+ "input": {
+  "ships": [
+   {
+    "name": "A",
+    "s": 0,
+    "e": 4,
+    "need": []
+   },
+   {
+    "name": "B",
+    "s": 5,
+    "e": 8,
+    "need": []
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 6
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": 42,
+  "opt_source": "vét cạn"
+ }
+}

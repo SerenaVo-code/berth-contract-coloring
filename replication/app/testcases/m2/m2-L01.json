@@ -1,0 +1,320 @@
+{
+ "id": "m2-L01",
+ "module": "m2",
+ "group": "lon",
+ "title": "30 tàu, 8 đội",
+ "desc": "Không đáp án tham chiếu.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 12.5,
+    "e": 13.0,
+    "need": [
+     "cẩu",
+     "hàng lạnh"
+    ]
+   },
+   {
+    "name": "Tàu 2",
+    "s": 39.0,
+    "e": 41.5,
+    "need": [
+     "hàng lạnh",
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 3",
+    "s": 36.0,
+    "e": 40.0,
+    "need": []
+   },
+   {
+    "name": "Tàu 4",
+    "s": 27.5,
+    "e": 29.5,
+    "need": [
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 5",
+    "s": 25.5,
+    "e": 28.5,
+    "need": [
+     "hàng lạnh",
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 6",
+    "s": 18.0,
+    "e": 23.0,
+    "need": [
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 7",
+    "s": 36.0,
+    "e": 38.5,
+    "need": []
+   },
+   {
+    "name": "Tàu 8",
+    "s": 23.0,
+    "e": 24.5,
+    "need": []
+   },
+   {
+    "name": "Tàu 9",
+    "s": 20.5,
+    "e": 21.0,
+    "need": [
+     "hàng lạnh"
+    ]
+   },
+   {
+    "name": "Tàu 10",
+    "s": 19.0,
+    "e": 21.0,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 11",
+    "s": 14.5,
+    "e": 19.0,
+    "need": [
+     "hàng lạnh",
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 12",
+    "s": 7.0,
+    "e": 9.5,
+    "need": []
+   },
+   {
+    "name": "Tàu 13",
+    "s": 28.5,
+    "e": 33.5,
+    "need": []
+   },
+   {
+    "name": "Tàu 14",
+    "s": 7.5,
+    "e": 9.5,
+    "need": [
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 15",
+    "s": 2.5,
+    "e": 6.0,
+    "need": [
+     "hóa chất",
+     "hàng lạnh"
+    ]
+   },
+   {
+    "name": "Tàu 16",
+    "s": 36.5,
+    "e": 40.0,
+    "need": [
+     "buộc dây",
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 17",
+    "s": 27.0,
+    "e": 30.5,
+    "need": [
+     "hàng lạnh",
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 18",
+    "s": 15.0,
+    "e": 19.5,
+    "need": []
+   },
+   {
+    "name": "Tàu 19",
+    "s": 12.5,
+    "e": 16.0,
+    "need": [
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 20",
+    "s": 9.5,
+    "e": 13.0,
+    "need": []
+   },
+   {
+    "name": "Tàu 21",
+    "s": 35.0,
+    "e": 37.5,
+    "need": [
+     "cẩu",
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 22",
+    "s": 33.0,
+    "e": 36.5,
+    "need": [
+     "hàng lạnh",
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 23",
+    "s": 22.0,
+    "e": 26.0,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 24",
+    "s": 8.5,
+    "e": 9.5,
+    "need": [
+     "buộc dây",
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 25",
+    "s": 40.0,
+    "e": 40.5,
+    "need": []
+   },
+   {
+    "name": "Tàu 26",
+    "s": 39.0,
+    "e": 42.0,
+    "need": [
+     "buộc dây",
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 27",
+    "s": 26.5,
+    "e": 29.5,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 28",
+    "s": 25.5,
+    "e": 26.5,
+    "need": []
+   },
+   {
+    "name": "Tàu 29",
+    "s": 36.5,
+    "e": 41.5,
+    "need": [
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 30",
+    "s": 10.5,
+    "e": 14.5,
+    "need": [
+     "cẩu"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "hàng lạnh",
+     "hóa chất",
+     "buộc dây",
+     "cẩu"
+    ],
+    "rate": 19
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "hàng lạnh",
+     "cẩu",
+     "buộc dây"
+    ],
+    "rate": 20
+   },
+   {
+    "name": "Đội 3",
+    "skills": [
+     "hàng lạnh",
+     "buộc dây",
+     "cẩu",
+     "hóa chất"
+    ],
+    "rate": 8
+   },
+   {
+    "name": "Đội 4",
+    "skills": [
+     "buộc dây",
+     "hóa chất"
+    ],
+    "rate": 14
+   },
+   {
+    "name": "Đội 5",
+    "skills": [
+     "hàng lạnh",
+     "hóa chất",
+     "buộc dây",
+     "cẩu"
+    ],
+    "rate": 17
+   },
+   {
+    "name": "Đội 6",
+    "skills": [
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 14
+   },
+   {
+    "name": "Đội 7",
+    "skills": [
+     "cẩu"
+    ],
+    "rate": 36
+   },
+   {
+    "name": "Đội 8",
+    "skills": [
+     "buộc dây"
+    ],
+    "rate": 35
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": null,
+  "opt_source": null
+ }
+}

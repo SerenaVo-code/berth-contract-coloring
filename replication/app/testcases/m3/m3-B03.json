@@ -1,0 +1,26 @@
+{
+ "id": "m3-B03",
+ "module": "m3",
+ "group": "bien",
+ "title": "Mọi yêu cầu có giá trị 0",
+ "desc": "",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 1,
+    "v": 0
+   },
+   {
+    "name": "B",
+    "w": 2,
+    "v": 0
+   }
+  ],
+  "W": 3
+ },
+ "expect": {
+  "opt": 0,
+  "opt_source": "công thức"
+ }
+}

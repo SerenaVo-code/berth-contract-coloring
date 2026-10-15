@@ -1,0 +1,76 @@
+{
+ "id": "m3-L02",
+ "module": "m3",
+ "group": "lon",
+ "title": "12 yêu cầu, quỹ 200",
+ "desc": "Khớp vét cạn.",
+ "input": {
+  "items": [
+   {
+    "name": "Yêu cầu 1",
+    "w": 3,
+    "v": 61
+   },
+   {
+    "name": "Yêu cầu 2",
+    "w": 30,
+    "v": 53
+   },
+   {
+    "name": "Yêu cầu 3",
+    "w": 2,
+    "v": 67
+   },
+   {
+    "name": "Yêu cầu 4",
+    "w": 19,
+    "v": 50
+   },
+   {
+    "name": "Yêu cầu 5",
+    "w": 28,
+    "v": 9
+   },
+   {
+    "name": "Yêu cầu 6",
+    "w": 13,
+    "v": 58
+   },
+   {
+    "name": "Yêu cầu 7",
+    "w": 33,
+    "v": 95
+   },
+   {
+    "name": "Yêu cầu 8",
+    "w": 11,
+    "v": 40
+   },
+   {
+    "name": "Yêu cầu 9",
+    "w": 35,
+    "v": 71
+   },
+   {
+    "name": "Yêu cầu 10",
+    "w": 32,
+    "v": 68
+   },
+   {
+    "name": "Yêu cầu 11",
+    "w": 6,
+    "v": 32
+   },
+   {
+    "name": "Yêu cầu 12",
+    "w": 10,
+    "v": 19
+   }
+  ],
+  "W": 200
+ },
+ "expect": {
+  "opt": 614,
+  "opt_source": "vét cạn"
+ }
+}

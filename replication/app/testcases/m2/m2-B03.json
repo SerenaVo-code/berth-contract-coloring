@@ -1,0 +1,35 @@
+{
+ "id": "m2-B03",
+ "module": "m2",
+ "group": "bien",
+ "title": "Thiếu một kỹ năng",
+ "desc": "Không đội nào đủ.",
+ "input": {
+  "ships": [
+   {
+    "name": "A",
+    "s": 0,
+    "e": 2,
+    "need": [
+     "cẩu",
+     "buộc dây"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu"
+    ],
+    "rate": 10
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": null,
+  "opt_source": "vét cạn",
+  "feasible": false
+ }
+}

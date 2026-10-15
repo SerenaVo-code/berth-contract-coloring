@@ -1,0 +1,36 @@
+{
+ "id": "m2-N01",
+ "module": "m2",
+ "group": "nho",
+ "title": "1 tàu, 1 đội",
+ "desc": "Nhỏ nhất.",
+ "input": {
+  "ships": [
+   {
+    "name": "A",
+    "s": 0,
+    "e": 4,
+    "need": [
+     "cẩu"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": 40,
+  "opt_source": "công thức"
+ }
+}

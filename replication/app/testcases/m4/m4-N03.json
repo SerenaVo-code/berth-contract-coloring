@@ -1,0 +1,24 @@
+{
+ "id": "m4-N03",
+ "module": "m4",
+ "group": "nho",
+ "title": "2 lô không vừa chung",
+ "desc": "",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 6
+   },
+   {
+    "name": "B",
+    "w": 5
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "opt": 2,
+  "opt_source": "công thức"
+ }
+}

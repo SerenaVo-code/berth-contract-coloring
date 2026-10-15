@@ -1,0 +1,28 @@
+{
+ "id": "m1-N01",
+ "module": "m1",
+ "group": "nho",
+ "title": "2 tàu rời nhau",
+ "desc": "Dùng một hợp đồng hay hai tùy F và r.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 5
+   },
+   {
+    "name": "Tàu 2",
+    "s": 7,
+    "e": 9
+   }
+  ],
+  "pairs": [],
+  "F": 100,
+  "r": 10
+ },
+ "expect": {
+  "opt": 190,
+  "opt_source": "vét cạn"
+ }
+}

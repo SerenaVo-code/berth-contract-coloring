@@ -1,0 +1,28 @@
+{
+ "id": "m1-B06",
+ "module": "m1",
+ "group": "bien",
+ "title": "F = 0 và r = 0",
+ "desc": "Mọi phương án đều 0.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 1
+   },
+   {
+    "name": "Tàu 2",
+    "s": 0.5,
+    "e": 2
+   }
+  ],
+  "pairs": [],
+  "F": 0,
+  "r": 0
+ },
+ "expect": {
+  "opt": 0,
+  "opt_source": "công thức"
+ }
+}

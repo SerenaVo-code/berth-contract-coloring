@@ -1,0 +1,31 @@
+{
+ "id": "m3-T04",
+ "module": "m3",
+ "group": "thuong",
+ "title": "Ví dụ kinh điển: tham lam sai",
+ "desc": "Tham lam 160, tối ưu 220.",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 10,
+    "v": 60
+   },
+   {
+    "name": "B",
+    "w": 20,
+    "v": 100
+   },
+   {
+    "name": "C",
+    "w": 30,
+    "v": 120
+   }
+  ],
+  "W": 50
+ },
+ "expect": {
+  "opt": 220,
+  "opt_source": "instance dựng sẵn"
+ }
+}

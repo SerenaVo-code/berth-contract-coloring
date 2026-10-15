@@ -1,0 +1,24 @@
+{
+ "id": "m4-B01",
+ "module": "m4",
+ "group": "bien",
+ "title": "Lô nặng đúng bằng tải trọng",
+ "desc": "w = C.",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 10
+   },
+   {
+    "name": "B",
+    "w": 10
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "opt": 2,
+  "opt_source": "công thức"
+ }
+}

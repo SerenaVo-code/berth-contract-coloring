@@ -1,0 +1,107 @@
+{
+ "id": "m2-D02",
+ "module": "m2",
+ "group": "dacbiet",
+ "title": "Có nghiệm nhưng tham lam theo giờ đến bị kẹt",
+ "desc": "Tham lam giao đội rẻ cho tàu đến sớm rồi hết đội cho tàu đến sau; quay lui vẫn tìm được.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 7.5,
+    "e": 11.0,
+    "need": [
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 2",
+    "s": 0.5,
+    "e": 4.5,
+    "need": [
+     "hàng lạnh"
+    ]
+   },
+   {
+    "name": "Tàu 3",
+    "s": 0.0,
+    "e": 1.0,
+    "need": [
+     "hàng lạnh",
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 4",
+    "s": 3.5,
+    "e": 4.0,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 5",
+    "s": 3.5,
+    "e": 4.5,
+    "need": [
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 6",
+    "s": 6.5,
+    "e": 9.0,
+    "need": [
+     "hàng lạnh",
+     "buộc dây"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "hóa chất",
+     "hàng lạnh",
+     "cẩu",
+     "buộc dây"
+    ],
+    "rate": 15
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 15
+   },
+   {
+    "name": "Đội 3",
+    "skills": [
+     "hàng lạnh"
+    ],
+    "rate": 29
+   },
+   {
+    "name": "Đội 4",
+    "skills": [
+     "hàng lạnh",
+     "cẩu"
+    ],
+    "rate": 36
+   }
+  ],
+  "pairs": [
+   [
+    2,
+    0
+   ]
+  ]
+ },
+ "expect": {
+  "opt": 198.0,
+  "opt_source": "vét cạn"
+ }
+}

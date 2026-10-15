@@ -1,0 +1,26 @@
+{
+ "id": "m3-B02",
+ "module": "m3",
+ "group": "bien",
+ "title": "Mọi yêu cầu vượt quỹ",
+ "desc": "",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 9,
+    "v": 9
+   },
+   {
+    "name": "B",
+    "w": 8,
+    "v": 4
+   }
+  ],
+  "W": 7
+ },
+ "expect": {
+  "opt": 0,
+  "opt_source": "công thức"
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "id": "m2-B01",
+ "module": "m2",
+ "group": "bien",
+ "title": "Hai tàu chạm đầu mút, một đội",
+ "desc": "rời = đến, dùng chung được.",
+ "input": {
+  "ships": [
+   {
+    "name": "A",
+    "s": 0,
+    "e": 2,
+    "need": []
+   },
+   {
+    "name": "B",
+    "s": 2,
+    "e": 4,
+    "need": []
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": 40,
+  "opt_source": "công thức"
+ }
+}

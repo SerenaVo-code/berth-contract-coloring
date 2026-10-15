@@ -1,0 +1,52 @@
+{
+ "id": "m4-D03",
+ "module": "m4",
+ "group": "dacbiet",
+ "title": "Tổng lẻ so với tải trọng",
+ "desc": "Σ = 45, C = 10: cần 5 tàu.",
+ "input": {
+  "items": [
+   {
+    "name": "L0",
+    "w": 5
+   },
+   {
+    "name": "L1",
+    "w": 5
+   },
+   {
+    "name": "L2",
+    "w": 5
+   },
+   {
+    "name": "L3",
+    "w": 5
+   },
+   {
+    "name": "L4",
+    "w": 5
+   },
+   {
+    "name": "L5",
+    "w": 5
+   },
+   {
+    "name": "L6",
+    "w": 5
+   },
+   {
+    "name": "L7",
+    "w": 5
+   },
+   {
+    "name": "L8",
+    "w": 5
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "opt": 5,
+  "opt_source": "công thức"
+ }
+}

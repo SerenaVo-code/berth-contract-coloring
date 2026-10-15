@@ -1,0 +1,43 @@
+{
+ "id": "m1-D06",
+ "module": "m1",
+ "group": "dacbiet",
+ "title": "Cùng giờ đến, khác giờ rời",
+ "desc": "Thứ tự hòa cần quy tắc phụ.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 8
+   },
+   {
+    "name": "Tàu 2",
+    "s": 0,
+    "e": 2
+   },
+   {
+    "name": "Tàu 3",
+    "s": 0,
+    "e": 5
+   },
+   {
+    "name": "Tàu 4",
+    "s": 0,
+    "e": 3
+   },
+   {
+    "name": "Tàu 5",
+    "s": 0,
+    "e": 6
+   }
+  ],
+  "pairs": [],
+  "F": 100,
+  "r": 10
+ },
+ "expect": {
+  "opt": 740,
+  "opt_source": "vét cạn"
+ }
+}

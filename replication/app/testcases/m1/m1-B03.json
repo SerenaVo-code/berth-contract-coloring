@@ -1,0 +1,28 @@
+{
+ "id": "m1-B03",
+ "module": "m1",
+ "group": "bien",
+ "title": "Hai tàu chồng 0,5 giờ",
+ "desc": "Chồng rất ít vẫn là xung đột.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 2
+   },
+   {
+    "name": "Tàu 2",
+    "s": 1.5,
+    "e": 4
+   }
+  ],
+  "pairs": [],
+  "F": 100,
+  "r": 10
+ },
+ "expect": {
+  "opt": 245.0,
+  "opt_source": "vét cạn"
+ }
+}

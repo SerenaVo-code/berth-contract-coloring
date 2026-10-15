@@ -1,0 +1,29 @@
+{
+ "id": "m2-B04",
+ "module": "m2",
+ "group": "bien",
+ "title": "Đơn giá 0, không cần kỹ năng",
+ "desc": "Chi phí 0.",
+ "input": {
+  "ships": [
+   {
+    "name": "A",
+    "s": 0,
+    "e": 2,
+    "need": []
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [],
+    "rate": 0
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": 0,
+  "opt_source": "công thức"
+ }
+}

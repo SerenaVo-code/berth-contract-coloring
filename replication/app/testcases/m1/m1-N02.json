@@ -1,0 +1,33 @@
+{
+ "id": "m1-N02",
+ "module": "m1",
+ "group": "nho",
+ "title": "3 tàu chồng nhau",
+ "desc": "Cần ít nhất 3 hợp đồng.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 5
+   },
+   {
+    "name": "Tàu 2",
+    "s": 3,
+    "e": 8
+   },
+   {
+    "name": "Tàu 3",
+    "s": 4,
+    "e": 9
+   }
+  ],
+  "pairs": [],
+  "F": 100,
+  "r": 10
+ },
+ "expect": {
+  "opt": 450,
+  "opt_source": "vét cạn"
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "id": "m4-T02",
+ "module": "m4",
+ "group": "thuong",
+ "title": "9 lô #2",
+ "desc": "Ngẫu nhiên.",
+ "input": {
+  "items": [
+   {
+    "name": "Lô 1",
+    "w": 27
+   },
+   {
+    "name": "Lô 2",
+    "w": 60
+   },
+   {
+    "name": "Lô 3",
+    "w": 22
+   },
+   {
+    "name": "Lô 4",
+    "w": 12
+   },
+   {
+    "name": "Lô 5",
+    "w": 93
+   },
+   {
+    "name": "Lô 6",
+    "w": 95
+   },
+   {
+    "name": "Lô 7",
+    "w": 71
+   },
+   {
+    "name": "Lô 8",
+    "w": 21
+   },
+   {
+    "name": "Lô 9",
+    "w": 78
+   }
+  ],
+  "C": 100
+ },
+ "expect": {
+  "opt": 5,
+  "opt_source": "vét cạn"
+ }
+}

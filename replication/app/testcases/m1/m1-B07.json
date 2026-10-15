@@ -1,0 +1,38 @@
+{
+ "id": "m1-B07",
+ "module": "m1",
+ "group": "bien",
+ "title": "Tàu qua đêm (giờ > 24)",
+ "desc": "Giờ vượt 24 vẫn bình thường.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 20,
+    "e": 26
+   },
+   {
+    "name": "Tàu 2",
+    "s": 23,
+    "e": 28
+   },
+   {
+    "name": "Tàu 3",
+    "s": 30,
+    "e": 36
+   },
+   {
+    "name": "Tàu 4",
+    "s": 25,
+    "e": 31
+   }
+  ],
+  "pairs": [],
+  "F": 150,
+  "r": 12
+ },
+ "expect": {
+  "opt": 750,
+  "opt_source": "vét cạn"
+ }
+}

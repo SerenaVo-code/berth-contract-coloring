@@ -1,0 +1,66 @@
+{
+ "id": "m3-D03",
+ "module": "m3",
+ "group": "dacbiet",
+ "title": "Một yêu cầu lớn so với nhiều yêu cầu nhỏ",
+ "desc": "",
+ "input": {
+  "items": [
+   {
+    "name": "Lớn",
+    "w": 10,
+    "v": 100
+   },
+   {
+    "name": "Nhỏ0",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ1",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ2",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ3",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ4",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ5",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ6",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ7",
+    "w": 1,
+    "v": 11
+   },
+   {
+    "name": "Nhỏ8",
+    "w": 1,
+    "v": 11
+   }
+  ],
+  "W": 10
+ },
+ "expect": {
+  "opt": 100,
+  "opt_source": "vét cạn"
+ }
+}

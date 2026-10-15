@@ -1,0 +1,21 @@
+{
+ "id": "m3-B01",
+ "module": "m3",
+ "group": "bien",
+ "title": "Quỹ 0 giờ",
+ "desc": "Không nhận được gì.",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 1,
+    "v": 9
+   }
+  ],
+  "W": 0
+ },
+ "expect": {
+  "opt": 0,
+  "opt_source": "công thức"
+ }
+}

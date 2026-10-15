@@ -1,0 +1,70 @@
+{
+ "id": "m2-N03",
+ "module": "m2",
+ "group": "nho",
+ "title": "4 tàu, 2 đội",
+ "desc": "Cỡ nhỏ.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 6.0,
+    "e": 8.0,
+    "need": []
+   },
+   {
+    "name": "Tàu 2",
+    "s": 0.5,
+    "e": 5.0,
+    "need": [
+     "hàng lạnh",
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 3",
+    "s": 1.5,
+    "e": 2.0,
+    "need": [
+     "hóa chất",
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 4",
+    "s": 0.0,
+    "e": 3.5,
+    "need": [
+     "hóa chất",
+     "buộc dây"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "buộc dây",
+     "cẩu",
+     "hàng lạnh"
+    ],
+    "rate": 14
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "hóa chất",
+     "buộc dây",
+     "cẩu",
+     "hàng lạnh"
+    ],
+    "rate": 23
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": null,
+  "opt_source": "vét cạn"
+ }
+}

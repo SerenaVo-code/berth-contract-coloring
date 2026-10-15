@@ -1,0 +1,101 @@
+{
+ "id": "m2-T02",
+ "module": "m2",
+ "group": "thuong",
+ "title": "6 tàu, 4 đội #2",
+ "desc": "Ngẫu nhiên cỡ vừa.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 2.0,
+    "e": 4.0,
+    "need": [
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 2",
+    "s": 10.0,
+    "e": 12.0,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 3",
+    "s": 6.5,
+    "e": 8.5,
+    "need": [
+     "buộc dây",
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 4",
+    "s": 4.5,
+    "e": 7.5,
+    "need": [
+     "hàng lạnh"
+    ]
+   },
+   {
+    "name": "Tàu 5",
+    "s": 3.0,
+    "e": 5.5,
+    "need": [
+     "hóa chất"
+    ]
+   },
+   {
+    "name": "Tàu 6",
+    "s": 4.5,
+    "e": 7.5,
+    "need": []
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "hàng lạnh",
+     "buộc dây"
+    ],
+    "rate": 15
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "hàng lạnh",
+     "cẩu"
+    ],
+    "rate": 13
+   },
+   {
+    "name": "Đội 3",
+    "skills": [
+     "hàng lạnh",
+     "cẩu",
+     "buộc dây",
+     "hóa chất"
+    ],
+    "rate": 24
+   },
+   {
+    "name": "Đội 4",
+    "skills": [
+     "hàng lạnh",
+     "hóa chất",
+     "cẩu",
+     "buộc dây"
+    ],
+    "rate": 37
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": 248.0,
+  "opt_source": "vét cạn"
+ }
+}

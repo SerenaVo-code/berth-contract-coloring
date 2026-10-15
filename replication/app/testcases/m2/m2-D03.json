@@ -1,0 +1,90 @@
+{
+ "id": "m2-D03",
+ "module": "m2",
+ "group": "dacbiet",
+ "title": "Chu trình lẻ cấm với 2 đội",
+ "desc": "Không thể 2-tô màu chu trình 5.",
+ "input": {
+  "ships": [
+   {
+    "name": "S0",
+    "s": 0,
+    "e": 1,
+    "need": []
+   },
+   {
+    "name": "S1",
+    "s": 1,
+    "e": 2,
+    "need": []
+   },
+   {
+    "name": "S2",
+    "s": 2,
+    "e": 3,
+    "need": []
+   },
+   {
+    "name": "S3",
+    "s": 3,
+    "e": 4,
+    "need": []
+   },
+   {
+    "name": "S4",
+    "s": 4,
+    "e": 5,
+    "need": []
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   }
+  ],
+  "pairs": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    4,
+    0
+   ]
+  ]
+ },
+ "expect": {
+  "opt": null,
+  "opt_source": "vét cạn",
+  "feasible": false
+ }
+}

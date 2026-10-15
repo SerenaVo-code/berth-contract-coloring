@@ -1,0 +1,20 @@
+{
+ "id": "m4-N01",
+ "module": "m4",
+ "group": "nho",
+ "title": "1 lô",
+ "desc": "",
+ "input": {
+  "items": [
+   {
+    "name": "A",
+    "w": 4
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "opt": 1,
+  "opt_source": "công thức"
+ }
+}

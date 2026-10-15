@@ -1,0 +1,91 @@
+{
+ "id": "m2-D04",
+ "module": "m2",
+ "group": "dacbiet",
+ "title": "Các đội giống hệt nhau",
+ "desc": "Kiểm tra bỏ qua đối xứng.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 4.5,
+    "e": 6.5,
+    "need": [
+     "buộc dây",
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 2",
+    "s": 8.0,
+    "e": 10.5,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 3",
+    "s": 0.5,
+    "e": 1.0,
+    "need": [
+     "hóa chất",
+     "buộc dây"
+    ]
+   },
+   {
+    "name": "Tàu 4",
+    "s": 1.5,
+    "e": 6.0,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "Tàu 5",
+    "s": 3.0,
+    "e": 8.0,
+    "need": [
+     "buộc dây",
+     "hóa chất"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   },
+   {
+    "name": "Đội 3",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": 145.0,
+  "opt_source": "vét cạn"
+ }
+}

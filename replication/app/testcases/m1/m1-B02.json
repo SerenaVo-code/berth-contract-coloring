@@ -1,0 +1,28 @@
+{
+ "id": "m1-B02",
+ "module": "m1",
+ "group": "bien",
+ "title": "Hai tàu chạm đầu mút",
+ "desc": "rời = đến thì không xung đột.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 2
+   },
+   {
+    "name": "Tàu 2",
+    "s": 2,
+    "e": 4
+   }
+  ],
+  "pairs": [],
+  "F": 100,
+  "r": 10
+ },
+ "expect": {
+  "opt": 140,
+  "opt_source": "vét cạn"
+ }
+}

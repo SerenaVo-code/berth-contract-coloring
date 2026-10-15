@@ -1,0 +1,52 @@
+{
+ "id": "m4-T04",
+ "module": "m4",
+ "group": "thuong",
+ "title": "First-Fit tệ hơn First-Fit giảm dần",
+ "desc": "Thứ tự nhập xấu làm FF mở thừa tàu; FFD đạt tối ưu.",
+ "input": {
+  "items": [
+   {
+    "name": "Lô 1",
+    "w": 2
+   },
+   {
+    "name": "Lô 2",
+    "w": 5
+   },
+   {
+    "name": "Lô 3",
+    "w": 6
+   },
+   {
+    "name": "Lô 4",
+    "w": 2
+   },
+   {
+    "name": "Lô 5",
+    "w": 5
+   },
+   {
+    "name": "Lô 6",
+    "w": 1
+   },
+   {
+    "name": "Lô 7",
+    "w": 6
+   },
+   {
+    "name": "Lô 8",
+    "w": 7
+   },
+   {
+    "name": "Lô 9",
+    "w": 2
+   }
+  ],
+  "C": 10
+ },
+ "expect": {
+  "opt": 4,
+  "opt_source": "vét cạn"
+ }
+}

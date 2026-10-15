@@ -1,0 +1,46 @@
+{
+ "id": "m2-B05",
+ "module": "m2",
+ "group": "bien",
+ "title": "Cặp cấm ép hai tàu rời nhau vào hai đội",
+ "desc": "Chỉ một đội nên vô nghiệm.",
+ "input": {
+  "ships": [
+   {
+    "name": "A",
+    "s": 0,
+    "e": 2,
+    "need": []
+   },
+   {
+    "name": "B",
+    "s": 3,
+    "e": 4,
+    "need": []
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   }
+  ],
+  "pairs": [
+   [
+    0,
+    1
+   ]
+  ]
+ },
+ "expect": {
+  "opt": null,
+  "opt_source": "vét cạn",
+  "feasible": false
+ }
+}

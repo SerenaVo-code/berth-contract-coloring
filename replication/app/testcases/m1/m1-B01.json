@@ -1,0 +1,23 @@
+{
+ "id": "m1-B01",
+ "module": "m1",
+ "group": "bien",
+ "title": "Chỉ 1 tàu",
+ "desc": "n = 1.",
+ "input": {
+  "ships": [
+   {
+    "name": "Tàu 1",
+    "s": 0,
+    "e": 3
+   }
+  ],
+  "pairs": [],
+  "F": 140,
+  "r": 10.0
+ },
+ "expect": {
+  "opt": 170,
+  "opt_source": "vét cạn"
+ }
+}

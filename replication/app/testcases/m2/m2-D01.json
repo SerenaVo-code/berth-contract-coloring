@@ -1,0 +1,64 @@
+{
+ "id": "m2-D01",
+ "module": "m2",
+ "group": "dacbiet",
+ "title": "3 tàu cùng giờ, 2 đội đủ kỹ năng (vi phạm Hall)",
+ "desc": "Phải kết luận vô nghiệm ngay, không cần duyệt.",
+ "input": {
+  "ships": [
+   {
+    "name": "S0",
+    "s": 0,
+    "e": 5,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "S1",
+    "s": 0,
+    "e": 5,
+    "need": [
+     "cẩu"
+    ]
+   },
+   {
+    "name": "S2",
+    "s": 0,
+    "e": 5,
+    "need": [
+     "cẩu"
+    ]
+   }
+  ],
+  "teams": [
+   {
+    "name": "Đội 1",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 10
+   },
+   {
+    "name": "Đội 2",
+    "skills": [
+     "cẩu",
+     "buộc dây",
+     "hàng lạnh",
+     "hóa chất"
+    ],
+    "rate": 12
+   }
+  ],
+  "pairs": []
+ },
+ "expect": {
+  "opt": null,
+  "opt_source": "vét cạn",
+  "feasible": false,
+  "hall": true
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "id": "m4-D02",
+ "module": "m4",
+ "group": "dacbiet",
+ "title": "First-Fit giảm dần không tối ưu",
+ "desc": "Cả FFD lẫn BFD dùng nhiều tàu hơn tối ưu; quay lui phải sửa lại.",
+ "input": {
+  "items": [
+   {
+    "name": "Lô 1",
+    "w": 51
+   },
+   {
+    "name": "Lô 2",
+    "w": 21
+   },
+   {
+    "name": "Lô 3",
+    "w": 29
+   },
+   {
+    "name": "Lô 4",
+    "w": 21
+   },
+   {
+    "name": "Lô 5",
+    "w": 58
+   },
+   {
+    "name": "Lô 6",
+    "w": 36
+   },
+   {
+    "name": "Lô 7",
+    "w": 50
+   },
+   {
+    "name": "Lô 8",
+    "w": 26
+   }
+  ],
+  "C": 100
+ },
+ "expect": {
+  "opt": 3,
+  "opt_source": "vét cạn"
+ }
+}
