@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { SAMPLES } from './samples.js'
 import { useSolve } from './hooks.js'
-import { AlgoPicker, CompareTable, Editor, JsonBox, Kpis, Player, Samples, Verdict, col, num, txt, usePlayer } from './ui.jsx'
+import { CX } from './info.js'
+import { AlgoPicker, CompareTable, Editor, Glossary, JsonBox, Kpis, Player, Pseudo, Samples, Verdict, col, num, txt, usePlayer } from './ui.jsx'
 
 const fromInput = (inp) => ({ items: inp.items.map((x) => ({ ...x })), C: inp.C })
 
@@ -52,6 +53,7 @@ export default function Bins() {
             <>
               <AlgoPicker algos={res.algos} value={algo} onChange={setAlgo} />
               <Player p={p} step={step} />
+              <Pseudo mod="bins" algo={algo} kind={step.kind} />
               <Kpis items={[['Tàu đang dùng', step.n_bins ?? 0], ['Phương án tốt nhất hiện có', step.best ?? '—'], ['Cận dưới ⌈Σw/C⌉', res.lb], ['Kết quả cuối', a.bins]]} />
               <section className="card"><div className="card-h"><h2>Các tàu</h2><span>tải trọng {num(solved.C)}</span></div>
                 <div className="card-b">
@@ -72,10 +74,11 @@ export default function Bins() {
                   <div className="chips"><span className="cl">Chưa xếp ({un.length}):</span>{un.map((i) => <span key={i} className={'chip' + (i === step.cur ? ' cur' : '')}>{solved.items[i].name} ({num(solved.items[i].w)})</span>)}</div>
                   <p className="legend">Mỗi cột là một tàu, chiều cao khối tỉ lệ với khối lượng. Khối viền đen là lô đang xét.</p>
                 </div></section>
-              <CompareTable selected={algo} head={['Thuật toán', 'Số tàu', 'Số bước', 'Nút', 'ms', 'Đánh giá']}
+              <CompareTable selected={algo} head={['Thuật toán', 'Số tàu', 'Số bước', 'Nút', 'ms', 'Độ phức tạp', 'Đánh giá']}
                 foot={`Cận dưới ⌈Σw/C⌉ = ${res.lb} tàu. Tối ưu nghĩa là bằng cận dưới hoặc quay lui đã duyệt hết.`}
-                rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, x.bins, x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2),
+                rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, x.bins, x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2), CX.bins[x.key],
                   <Verdict key="v" ok={x.optimal === true ? true : x.key === 'bt' ? false : null} text={x.optimal === true ? 'Tối ưu' : x.key === 'bt' ? 'Chưa chứng minh tối ưu' : 'Chưa chắc tối ưu'} />] }))} />
+              <Glossary />
             </>
           )}
         </div>

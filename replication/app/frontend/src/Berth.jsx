@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { SAMPLES } from './samples.js'
 import { useSolve, parsePairs, pairsToText } from './hooks.js'
-import { AlgoPicker, Cands, CompareTable, Editor, Gantt, JsonBox, Kpis, Player, Samples, Verdict, col, num, txt, usePlayer } from './ui.jsx'
+import { CX } from './info.js'
+import { AlgoPicker, Cands, CompareTable, Editor, Gantt, Glossary, JsonBox, Kpis, Player, Pseudo, Samples, Verdict, col, num, txt, usePlayer } from './ui.jsx'
 
 const fromInput = (inp) => ({
   ships: inp.ships.map((s) => ({ ...s })), F: inp.F, r: inp.r,
@@ -70,6 +71,7 @@ export default function Berth() {
             <>
               <AlgoPicker algos={res.algos} value={algo} onChange={setAlgo} />
               <Player p={p} step={step} />
+              <Pseudo mod="berth" algo={algo} kind={step.kind} />
               <Kpis items={[
                 ['Tổng tạm thời', num(step.cost ?? 0)], ['Phương án tốt nhất hiện có', step.best != null ? num(step.best) : '—'],
                 ['Cận dưới', num(res.lb)], ['Hợp đồng đang mở', step.n_contracts ?? 0], ['Kết quả cuối', num(a.cost)],
@@ -83,12 +85,13 @@ export default function Berth() {
                 <div className="card-b">
                   {tab === 'gantt' && <GanttView res={res} a={a} step={step} body={solved} />}
                   {tab === 'graph' && <GraphView body={solved} step={step} />}
-                  {tab === 'cmp' && <CompareTable selected={algo} head={['Thuật toán', 'Hợp đồng', 'Tổng chi phí', 'Số bước', 'Nút/lần thử', 'ms', 'Đánh giá']}
+                  {tab === 'cmp' && <CompareTable selected={algo} head={['Thuật toán', 'Hợp đồng', 'Tổng chi phí', 'Số bước', 'Nút/lần thử', 'ms', 'Độ phức tạp', 'Đánh giá']}
                     foot={`Cận dưới = ω·F + r·Σ thời gian cập = ${num(res.lb)} (ω = ${res.omega} tàu neo cùng lúc nhiều nhất). Tối ưu nghĩa là bằng cận dưới hoặc quay lui đã duyệt hết.`}
-                    rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, x.n_contracts, num(x.cost), x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2),
+                    rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, x.n_contracts, num(x.cost), x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2), CX.berth[x.key],
                       <Verdict key="v" ok={x.key === 'bt' ? x.optimal : x.optimal ? true : null} text={x.optimal ? 'Tối ưu' : x.key === 'bt' ? 'Chưa chứng minh tối ưu' : 'Chưa chắc tối ưu'} />] }))} />}
                 </div>
               </section>
+              <Glossary />
             </>
           )}
         </div>

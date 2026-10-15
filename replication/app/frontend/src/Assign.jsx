@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { SAMPLES } from './samples.js'
 import { useSolve, parsePairs, pairsToText } from './hooks.js'
-import { AlgoPicker, Cands, CompareTable, Editor, Gantt, JsonBox, Kpis, Player, Samples, Verdict, num, usePlayer } from './ui.jsx'
+import { CX } from './info.js'
+import { AlgoPicker, Cands, CompareTable, Editor, Gantt, Glossary, JsonBox, Kpis, Player, Pseudo, Samples, Verdict, num, usePlayer } from './ui.jsx'
 
 const fromInput = (inp) => ({
   ships: inp.ships.map((s) => ({ ...s, need: [...s.need] })), teams: inp.teams.map((t) => ({ ...t, skills: [...t.skills] })),
@@ -73,6 +74,7 @@ export default function Assign() {
               {res.hall && <div className="alert warn" role="status"><b>Kiểm tra điều kiện cần:</b> {res.hall.msg}</div>}
               <AlgoPicker algos={res.algos} value={algo} onChange={setAlgo} />
               <Player p={p} step={step} />
+              <Pseudo mod="assign" algo={algo} kind={step.kind} />
               <Kpis items={[['Chi phí tạm thời', step.cost != null ? num(step.cost) : '—'], ['Phương án tốt nhất hiện có', step.best != null ? num(step.best) : '—'],
                 ['Đã giao', `${step.col.filter((c) => c >= 0).length}/${sh.length}`], ['Kết quả cuối', a.status === 'ok' ? num(a.cost) : 'Không có']]} />
               <Cands cands={step.cands} picked={step.to} nameOf={(k) => solved.teams[k].name} unit="đội nào nhận được tàu đang xét" />
@@ -86,10 +88,11 @@ export default function Assign() {
                   <p className="legend">Hàng là đội, thanh là tàu được giao. Khung nét đứt xanh là giờ của tàu đang xét.</p>
                 </div>
               </section>
-              <CompareTable selected={algo} head={['Thuật toán', 'Kết quả', 'Chi phí', 'Số bước', 'Nút', 'ms', 'Đánh giá']}
+              <CompareTable selected={algo} head={['Thuật toán', 'Kết quả', 'Chi phí', 'Số bước', 'Nút', 'ms', 'Độ phức tạp', 'Đánh giá']}
                 foot="Tham lam có thể kẹt dù bài có nghiệm. Quay lui kết luận vô nghiệm chỉ khi đã duyệt hết hoặc kiểm tra điều kiện cần (Hall) thất bại."
-                rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, STATUS[x.status], x.cost != null ? num(x.cost) : '—', x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2),
+                rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, STATUS[x.status], x.cost != null ? num(x.cost) : '—', x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2), CX.assign[x.key],
                   <Verdict key="v" ok={x.optimal === true ? true : x.optimal === false ? false : null} text={x.optimal === true ? (x.status === 'ok' ? 'Tối ưu' : 'Đã chứng minh') : x.optimal === false ? 'Chưa chứng minh tối ưu' : '—'} />] }))} />
+              <Glossary />
             </>
           )}
         </div>

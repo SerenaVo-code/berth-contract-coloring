@@ -44,3 +44,8 @@ Lỗi thật gặp phải và cách sửa nằm ở mục "Lỗi thật gặp ph
 > là soa nhỉ, những prompt bạn đóng vai mình bạn không ghi vào á, cứ ghi vào đi, sau này mình sẽ dùng prompt và quyết định của bạn để test lại
 
 **Kết quả.** Tạo `SCRIPT.md`: 12 vòng prompt và quyết định do Claude soạn, mỗi quyết định gắn nhãn 🟢 gốc (Tuyền thật sự đã quyết ở bản gốc) hoặc 🔵 đề xuất (chưa được Tuyền xác nhận).
+
+## Prompt 6 · 09:02 · tiếp tục đóng vai và ghi vào SCRIPT.md
+> Khi nãy còn một phần [...] Bạn tiếp tục đóng vai mình để thực hiện nha, cũng đồng thời ghi lại vô trong replication/SCRIPT.md như bạn nêu khi nãy nhé. Chung thì mình đang muốn demo với khả năng của AI thì có thể dựng lại và cải thiến dự án mình như thế nào. Làm ơn chỉ ghi cái mình yêu cầu, đừng có log cái gì liên quan tới reasoning_extraction nữa, mệt quá đi
+
+**Kết quả.** Thêm vòng 12 và bảng "Cải thiện so với bản gốc" vào `SCRIPT.md`; viết mục 6.7 trong report. Chỉ ghi prompt, kết quả và quyết định.

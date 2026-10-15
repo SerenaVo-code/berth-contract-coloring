@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { GLOSS, PSEUDO } from './info.js'
 
 export const PALETTE = ['#024D71', '#F99D20', '#683D99', '#25B570', '#2462B5', '#863376', '#5AA7AD', '#555A61']
 export const TEXTC = ['#fff', '#542E00', '#fff', '#0D3F26', '#fff', '#fff', '#032938', '#fff']
@@ -86,7 +87,7 @@ export function CompareTable({ head, rows, selected, foot }) {
           <tbody>
             {rows.map((r) => (
               <tr key={r.key} className={r.key === selected ? 'sel' : ''}>
-                {r.cells.map((c, i) => <td key={i} className={i > 0 && i < r.cells.length - 1 ? 'num' : ''}>{c}</td>)}
+                {r.cells.map((c, i) => <td key={i} className={typeof c === 'number' || (typeof c === 'string' && /^[\d.,—\-]+$/.test(c)) ? 'num' : ''}>{c}</td>)}
               </tr>
             ))}
           </tbody>
@@ -218,3 +219,25 @@ export function Editor({ rows, setRows, cols, newRow, max }) {
   )
 }
 const gridOf = (cols) => cols.map((c) => c.w || '1fr').join(' ') + ' 28px'
+
+/** Mã giả của thuật toán đang chọn, dòng đang chạy được tô sáng theo loại bước. */
+export function Pseudo({ mod, algo, kind }) {
+  const ps = PSEUDO[mod] && PSEUDO[mod][algo]
+  if (!ps) return null
+  const on = ps.map[kind]
+  return (
+    <section className="card">
+      <div className="card-h"><h2>Mã giả đang chạy</h2><span>dòng sáng là bước hiện tại</span></div>
+      <pre className="pseudo" aria-label="Mã giả">{ps.lines.map((l, i) => <div key={i} className={i === on ? 'pl on' : 'pl'}>{l || ' '}</div>)}</pre>
+    </section>
+  )
+}
+
+export function Glossary() {
+  return (
+    <details className="card gloss">
+      <summary>Giải thích thuật ngữ</summary>
+      <dl>{GLOSS.map(([t, d]) => (<div key={t}><dt>{t}</dt><dd>{d}</dd></div>))}</dl>
+    </details>
+  )
+}

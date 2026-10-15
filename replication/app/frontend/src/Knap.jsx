@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { SAMPLES } from './samples.js'
 import { useSolve } from './hooks.js'
-import { AlgoPicker, CompareTable, Editor, JsonBox, Kpis, Player, Samples, Verdict, num, usePlayer } from './ui.jsx'
+import { CX } from './info.js'
+import { AlgoPicker, CompareTable, Editor, Glossary, JsonBox, Kpis, Player, Pseudo, Samples, Verdict, num, usePlayer } from './ui.jsx'
 
 const fromInput = (inp) => ({ items: inp.items.map((x) => ({ ...x })), W: inp.W })
 
@@ -63,6 +64,7 @@ export default function Knap() {
             <>
               <AlgoPicker algos={res.algos} value={algo} onChange={setAlgo} />
               <Player p={p} step={step} />
+              <Pseudo mod="knap" algo={algo} kind={step.kind} />
               <Kpis items={[['Quỹ còn lại', step.left != null ? step.left + 'h' : '—'], ['Giá trị tạm thời', step.value != null ? num(step.value) : '—'],
                 ['Phương án tốt nhất hiện có', step.best != null ? num(step.best) : '—'], ['Kết quả cuối', num(a.value)]]} />
               {a.key === 'dp' ? (
@@ -77,11 +79,12 @@ export default function Knap() {
                     <td>{taken ? (taken[i] ? <Verdict ok text="Nhận" /> : <Verdict text="Không nhận" />) : '—'}</td></tr>))}</tbody></table>
                   <div className="barwrap" aria-label="Quỹ giờ đã dùng"><div className="barfill" style={{ width: `${solved.W ? ((solved.W - (step.left ?? solved.W)) / solved.W) * 100 : 0}%` }} /></div>
                   <p className="legend">Thanh cho thấy tỉ lệ quỹ giờ đã dùng ở bước hiện tại.</p></div></section>
-              <CompareTable selected={algo} head={['Thuật toán', 'Giá trị', 'Số bước', 'Nút', 'ms', 'Đánh giá']}
+              <CompareTable selected={algo} head={['Thuật toán', 'Giá trị', 'Số bước', 'Nút', 'ms', 'Độ phức tạp', 'Đánh giá']}
                 foot="Tham lam theo giá trị/giờ có thể sai với cái túi 0/1. Quy hoạch động luôn tối ưu. Quay lui dùng cận trên nới lỏng phân số để bỏ nhánh."
-                rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, num(x.value), x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2),
+                rows={res.algos.map((x) => ({ key: x.key, cells: [x.name, num(x.value), x.steps.length - 1, x.nodes || '—', x.ms.toFixed(2), CX.knap[x.key],
                   <Verdict key="v" ok={x.optimal === true ? true : x.optimal === false ? false : num(x.value) === num(res.algos[1].value) ? true : false}
                     text={x.optimal === true ? 'Tối ưu' : x.optimal === false ? 'Chưa chứng minh tối ưu' : num(x.value) === num(res.algos[1].value) ? 'Trùng tối ưu (do may mắn)' : `Kém tối ưu ${num(res.algos[1].value - x.value)}`} />] }))} />
+              <Glossary />
             </>
           )}
         </div>

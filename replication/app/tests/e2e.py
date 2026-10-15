@@ -30,6 +30,7 @@ def main():
                 for _ in range(4):
                     pg.get_by_role("button", name="Tiếp", exact=True).click()
                 after = pg.locator(".msg").inner_text()
+                assert pg.locator('.pseudo .pl.on').count() == 1, f'{name}/thuật toán {k}: mã giả không tô dòng nào'
                 assert after != first, f"{name}/thuật toán {k}: bấm Tiếp không đổi thông điệp"
                 msgs.add(after)
                 pg.get_by_role("button", name="Về đầu").click()
@@ -46,7 +47,9 @@ def main():
             if pg.get_by_role("tab", name="So sánh").count():
                 pg.get_by_role("tab", name="So sánh").click()
             assert pg.get_by_text("So sánh các thuật toán").count() or pg.locator("table.tbl thead", has_text="Đánh giá").count()
+            assert pg.locator("table.tbl thead", has_text="Độ phức tạp").count() == 1
             assert pg.locator("table.tbl thead", has_text="Đánh giá").count() == 1
+            assert pg.locator("details.gloss").count() == 1
             # nhập sai: xóa tên của dòng đầu -> thông báo lỗi
             pg.locator(".edit-row input").first.fill("")
             pg.wait_for_selector(".alert", timeout=3000)

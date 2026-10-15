@@ -107,6 +107,28 @@ Mỗi vòng có: prompt (tiếng Anh), kết quả khi chạy lần này (số t
 
 ---
 
+## Vòng 12 · Giải thích thuật toán ngay trên giao diện
+**Prompt**
+> The step view should explain the algorithm, not only show its state. Add a pseudocode panel whose highlighted line follows the current step kind, a collapsible glossary for every technical term (with the plain-language replacements "best so far" and "prune a branch"), and an algorithm-complexity column in each comparison table.
+
+**Kết quả lần này:** `frontend/src/info.js` (độ phức tạp `CX`, chú giải `GLOSS`, mã giả `PSEUDO` cho cả 13 thuật toán), thành phần `Pseudo` và `Glossary` trong `ui.jsx`, cột "Độ phức tạp" ở bảng so sánh của 4 module. `tests/e2e.py` kiểm: đúng một dòng mã giả sáng ở mỗi thuật toán, có cột độ phức tạp, có phần chú giải. e2e đạt, 237 pytest đạt.
+**Quyết định:** 🟢 hiện mã giả và bảng ứng viên kèm lý do loại (Tuyền muốn thấy rõ từng bước của thuật toán); 🟢 chú giải thuật ngữ và thay "kỷ lục", "cắt tỉa" bằng "phương án tốt nhất hiện có", "bỏ nhánh"; 🔵 cột độ phức tạp (hạn chế đã biết của bản gốc: giao diện chưa có chú thích độ phức tạp).
+**Kiểm:** `python tests/e2e.py`.
+
+---
+
+## Cải thiện so với bản gốc (đã kiểm chứng trong lần dựng lại)
+| Điểm | Bản gốc | Bản dựng lại |
+|---|---|---|
+| Giới hạn quay lui | theo đồng hồ (1,5 giây): cùng đầu vào có thể ra hai kết quả | theo số lần thử: luôn cùng kết quả (có test `test_berth_deterministic`) |
+| Module 2: cặp tàu cấm chung đội | chưa nhập được trên giao diện | có ô nhập, và dùng được trong JSON |
+| Nhập/xuất testcase | chưa có | nhập/xuất JSON đúng định dạng `input` của testcase |
+| Dữ liệu mẫu trên giao diện | soạn riêng | lấy thẳng từ testcase (`tools/make_samples.py`), một nguồn |
+| Độ phức tạp trên giao diện | chưa có | cột "Độ phức tạp" và mã giả |
+| Mô tả testcase | từng có ca mô tả sai kết quả | mô tả ca đặc biệt được sinh bằng cách tìm instance thật có tính chất đó |
+
+Chưa cải thiện: quay lui vẫn hết ngân sách ở các ca lớn module 1 và 2; chưa thử trên Codespaces.
+
 ## Cách dùng khi chạy lại
 1. Mở phiên mới, thư mục trống, gõ lần lượt các prompt ở trên.
 2. Sau mỗi vòng, chạy lệnh ở mục "Kiểm". Nếu không đạt thì sửa prompt hoặc ghi lại phản hồi thật của bạn.
