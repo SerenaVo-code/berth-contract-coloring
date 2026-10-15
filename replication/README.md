@@ -8,6 +8,7 @@ Mục đích: kiểm tra xem đặc tả và bộ testcase có đủ chặt đ�
 |---|---|
 | `spec/` | hiến pháp và đặc tả |
 | `app/` | bản dựng lại: backend, giao diện React, testcase, kiểm thử |
+| `PROMPTS.md` | các prompt thật đã gõ trong lần dựng lại này và kết quả tương ứng |
 | `LOG.md` | nhật ký kỹ thuật: đã làm gì, lỗi thật gặp phải, số đo thật |
 | `app/CROSS_CHECK.md` | đối chiếu hai chiều với bản gốc, sinh bởi `app/tools/cross_check.py` |
 

@@ -23,4 +23,4 @@ Tác giả: Claude. Ghi những gì thật sự xảy ra khi dựng lại, theo 
 ## Hạn chế còn lại
 - Quay lui vẫn hết ngân sách ở các ca lớn module 1 và 2 (không chứng minh được tối ưu).
 - m4-L02 hết ngân sách trước khi chạm tối ưu.
-- Chưa thử trên Codespaces; chưa đẩy lên GitHub (token đăng nhập của phiên làm việc đang lỗi).
+- Chưa thử trên Codespaces. Đã đẩy lên GitHub (commit `19a6f3e`).
